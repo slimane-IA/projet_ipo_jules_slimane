@@ -14,22 +14,22 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		//Caractéristiques du jeu
+		//Caract?ristiques du jeu
 		int width = 26;
 		int height = 20;
 		int tempo = 100;
 		int minSpeedInTimerLoops = 3;
 		double defaultDensity = 0.2;
 		
-		//Création de l'interface graphique
+		//Cr?ation de l'interface graphique
 		IFroggerGraphics graphic = new FroggerGraphic(width, height);
-		//Création de la partie
+		//Cr?ation de la partie
 		Game game = new Game(graphic, width, height, minSpeedInTimerLoops, defaultDensity);
-		//Création et liason de la grenouille
+		//Cr?ation et liason de la grenouille
 		IFrog frog = new Frog(game);
 		game.setFrog(frog);
 		graphic.setFrog(frog);
-		//Création et liaison de l'environnement
+		//Cr?ation et liaison de l'environnement
 		IEnvironment env = new GivenEnvironment(game);
 		game.setEnvironment(env);
 				
