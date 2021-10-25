@@ -8,16 +8,22 @@ import util.Case;
 public class Frog implements IFrog {
 	
 	private Game game;
-	private Case case;
+	private Case caseFrog;
 	private Direction direction;
 
+
+	public Frog(Game game) {
+		this.game=game;
+		this.caseFrog=null;
+		this.direction=null;
+	}
 
 	/**
 	 * Donne la position actuelle de la grenouille
 	 * @return
 	 */
 	public Case getPosition(){
-		return this.case;
+		return this.caseFrog;
 	}
 
 	/**
