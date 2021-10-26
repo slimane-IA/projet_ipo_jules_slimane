@@ -40,7 +40,7 @@ public class Lane {
 	 * If the first Case is empty,
 	 * Maybe add a new car (with probability equal to density)
 	 */
-	private void mayAddCar() {
+	private void randomlyAddCarIfPossible() {
 		if (game.isCaseSafe(this.getFirstCase()) && game.isCaseSafe(this.getBeforeFirstCase())) {
 			//If cases are empty, throw the dice and maybe put a car
 			if (game.randomGen.nextDouble() < density) {
