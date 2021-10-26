@@ -37,11 +37,12 @@ public class Lane {
 	 */
 
 	/**
-	 * Ajoute une voiture au d�but de la voie avec probabilit� �gale � la
-	 * densit�, si la premi�re case de la voie est vide
+	 * If the first Case is empty,
+	 * Maybe add a new car (with probability equal to density)
 	 */
 	private void mayAddCar() {
-		if (isSafe(getFirstCase()) && isSafe(getBeforeFirstCase())) {
+		if (game.isCaseSafe(this.getFirstCase()) && game.isCaseSafe(this.getBeforeFirstCase())) {
+			//If cases are empty, throw the dice and maybe put a car
 			if (game.randomGen.nextDouble() < density) {
 				cars.add(new Car(game, getBeforeFirstCase(), leftToRight));
 			}

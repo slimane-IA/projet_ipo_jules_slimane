@@ -4,6 +4,8 @@ package gameCommons;
 import java.awt.Color;
 import java.util.Random;
 
+import util.Case;
+
 import graphicalElements.Element;
 import graphicalElements.IFroggerGraphics;
 
@@ -88,6 +90,13 @@ public class Game {
 	 */
 	public boolean testWin() {
 		return this.environment.isWinningPosition(this.frog.getPosition());
+	}
+
+	/**
+	 * @return whether specific Case is safe
+	 */
+	public boolean isCaseSafe(Case c) {
+		return this.environment.isSafe(c);
 	}
 
 	/**
