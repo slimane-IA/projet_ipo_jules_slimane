@@ -1,6 +1,7 @@
 package environment;
 
 import java.util.ArrayList;
+//import java.util.Pair; // VSCode doesn't want me to do that
 
 import util.Case;
 import gameCommons.Game;
@@ -9,28 +10,40 @@ public class Lane {
 	private Game game;
 	private int ord;
 	private int speed;
-	private ArrayList<Car> cars = new ArrayList<>();
+	//private ArrayList<Pair<Car, Integer>> cars;
+	private ArrayList<Car> cars;
+	private ArrayList<Integer> ticker;
 	private boolean leftToRight;
 	private double density;
 
-	// TODO : Constructeur(s)
+	// Constructor
+	public Lane(Game game, int ord, int speed, boolean ltr, double density) {
+		this.game = game;
+		this.ord = ord;
+		this.speed = speed;
+		this.leftToRight = ltr;
+		this.cars = new ArrayList<>();
+		this.density = density;
+	}
 
+
+
+	// Updating function
 	public void update() {
 
 		// TODO
 
-		// Toutes les voitures se d�placent d'une case au bout d'un nombre "tic
-		// d'horloge" �gal � leur vitesse
-		// Notez que cette m�thode est appel�e � chaque tic d'horloge
-
-		// Les voitures doivent etre ajoutes a l interface graphique meme quand
-		// elle ne bougent pas
-
-		// A chaque tic d'horloge, une voiture peut �tre ajout�e
+		//Every step:
+		// Increment the ticker for all cars, if it exceeds their speed then move them
+		// Add all cars to the graphical interface
+		// Try to add another car
 
 	}
 
-	// TODO : ajout de methodes
+
+
+	// Methods
+	//TODO: Add methods
 
 	/*
 	 * Fourni : mayAddCar(), getFirstCase() et getBeforeFirstCase() 
@@ -43,8 +56,10 @@ public class Lane {
 	private void randomlyAddCarIfPossible() {
 		if (game.isCaseSafe(this.getFirstCase()) && game.isCaseSafe(this.getBeforeFirstCase())) {
 			//If cases are empty, throw the dice and maybe put a car
-			if (game.randomGen.nextDouble() < density) {
-				cars.add(new Car(game, getBeforeFirstCase(), leftToRight));
+			if (game.randomGen.nextDouble() < this.density) {
+				//this.cars.add(new Pair<>(new Car(game, getBeforeFirstCase(), leftToRight), 0));
+				this.cars.add(new Car(game, getBeforeFirstCase(), leftToRight));
+				this.ticker.add(0);
 			}
 		}
 	}
