@@ -14,6 +14,11 @@ public class Case {
 		this.isLastLine=false;
 	}
 
+	public Case getNextCase(boolean ltr) {
+		if(ltr) {return new Case(this.absc+1, this.ord);}
+		else {return new Case(this.absc-1, this.ord);}
+	}
+
 	public String toString(){
 		return "("+this.absc+","+this.ord+")";
 	}

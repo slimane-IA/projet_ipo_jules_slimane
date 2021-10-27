@@ -10,9 +10,8 @@ public class Lane {
 	private Game game;
 	private int ord;
 	private int speed;
-	//private ArrayList<Pair<Car, Integer>> cars;
+	private int ticker;
 	private ArrayList<Car> cars;
-	private ArrayList<Integer> ticker;
 	private boolean leftToRight;
 	private double density;
 
@@ -21,8 +20,9 @@ public class Lane {
 		this.game = game;
 		this.ord = ord;
 		this.speed = speed;
-		this.leftToRight = ltr;
+		this.ticker = 0;
 		this.cars = new ArrayList<>();
+		this.leftToRight = ltr;
 		this.density = density;
 	}
 
@@ -35,8 +35,20 @@ public class Lane {
 
 		//Every step:
 		// Increment the ticker for all cars, if it exceeds their speed then move them
+		this.ticker++;
+		if(ticker > speed) {
+			for(Car c : this.cars) {
+				c.moveOne();
+			}
+			ticker = 0;
+		}
+
 		// Add all cars to the graphical interface
+		for(Car c : this.cars) {
+			c.addToGraphics();
+		}
 		// Try to add another car
+		randomlyAddCarIfPossible();
 
 	}
 
@@ -46,7 +58,7 @@ public class Lane {
 	//TODO: Add methods
 
 	/*
-	 * Fourni : mayAddCar(), getFirstCase() et getBeforeFirstCase() 
+	 * Fourni : mayAddCar() [renamed to randomlyAddCarIfPossible()], getFirstCase() et getBeforeFirstCase() 
 	 */
 
 	/**
@@ -57,9 +69,7 @@ public class Lane {
 		if (game.isCaseSafe(this.getFirstCase()) && game.isCaseSafe(this.getBeforeFirstCase())) {
 			//If cases are empty, throw the dice and maybe put a car
 			if (game.randomGen.nextDouble() < this.density) {
-				//this.cars.add(new Pair<>(new Car(game, getBeforeFirstCase(), leftToRight), 0));
 				this.cars.add(new Car(game, getBeforeFirstCase(), leftToRight));
-				this.ticker.add(0);
 			}
 		}
 	}
