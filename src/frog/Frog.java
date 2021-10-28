@@ -12,10 +12,10 @@ public class Frog implements IFrog {
 	private Direction direction;
 
 
-	public Frog(Game game) {
-		this.game=game;
-		this.caseFrog=null;
-		this.direction=null;
+	public Frog(Game game, Case initialCase) {
+		this.game = game;
+		this.caseFrog = initialCase;
+		this.direction = null;
 	}
 
 	/**

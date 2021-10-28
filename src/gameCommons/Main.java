@@ -9,31 +9,35 @@ import frog.Frog;
 import givenEnvironment.GivenEnvironment;
 import graphicalElements.FroggerGraphic;
 import graphicalElements.IFroggerGraphics;
+import util.Case;
 
 public class Main {
 
 	public static void main(String[] args) {
 
-		//Caract?ristiques du jeu
+		//Game characteristics
 		int width = 26;
 		int height = 20;
 		int tempo = 100;
 		int minSpeedInTimerLoops = 3;
 		double defaultDensity = 0.2;
 		
-		//Cr?ation de l'interface graphique
+		//Creation of the graphical interface
 		IFroggerGraphics graphic = new FroggerGraphic(width, height);
-		//Cr?ation de la partie
+
+		//Creation of the game
 		Game game = new Game(graphic, width, height, minSpeedInTimerLoops, defaultDensity);
-		//Cr?ation et liason de la grenouille
-		IFrog frog = new Frog(game);
+
+		//Creation and linking of the frog
+		IFrog frog = new Frog(game, new Case(Math.round(width/2), 0));
 		game.setFrog(frog);
 		graphic.setFrog(frog);
-		//Cr?ation et liaison de l'environnement
+
+		//Creation and linking of the environment
 		IEnvironment env = new GivenEnvironment(game);
 		game.setEnvironment(env);
-				
-		//Boucle principale : l'environnement s'acturalise tous les tempo milisecondes
+		
+		//Main loop: update the environment every tempo milliseconds
 		Timer timer = new Timer(tempo, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
