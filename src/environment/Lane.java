@@ -1,7 +1,6 @@
 package environment;
 
 import java.util.ArrayList;
-//import java.util.Pair; // VSCode doesn't want me to do that
 
 import util.Case;
 import gameCommons.Game;
@@ -10,66 +9,99 @@ public class Lane {
 	private Game game;
 	private int ord;
 	private int speed;
-	private int ticker;
-	private ArrayList<Car> cars;
+	private ArrayList<Car> cars = new ArrayList<>();
 	private boolean leftToRight;
 	private double density;
+	private int waitToMove;
 
-	// Constructor
-	public Lane(Game game, int ord, int speed, boolean ltr, double density) {
+	// TODO : Constructeur(s)
+	public Lane(Game game, int ord, double density){
 		this.game = game;
 		this.ord = ord;
-		this.speed = speed;
-		this.ticker = 0;
-		this.cars = new ArrayList<>();
-		this.leftToRight = ltr;
+		this.speed = this.game.randomGen.nextInt(this.game.minSpeedInTimerLoops)+1;
+		this.leftToRight= this.game.randomGen.nextBoolean();
 		this.density = density;
+		this.waitToMove=this.speed;
+
 	}
 
 
 
-	// Updating function
 	public void update() {
 
-		// TODO
+		// Toutes les voitures se deplacent d'une case au bout d'un nombre "tic
+		// d'horloge" egal e leur vitesse
+		// Notez que cette methode est appelee e chaque tic d'horloge
 
-		//Every step:
-		// Increment the ticker for all cars, if it exceeds their speed then move them
-		this.ticker++;
-		if(ticker > speed) {
-			for(Car c : this.cars) {
-				c.moveOne();
+		// Les voitures doivent etre ajoutes a l interface graphique meme quand
+		// elle ne bougent pas
+
+		// A chaque tic d'horloge, une voiture peut etre ajoutee
+		// waitToMove est le temps qu'on attend pour que le voiture move 
+		this.waitToMove--;
+		this.pauseAllCars();
+
+		if (this.waitToMove<0){
+			this.startMovingAllCars();
+			this.mayAddCar();
+			this.waitToMove=this.speed;
+		}
+		
+	}
+
+	// TODO : ajout de methodes
+
+	public void startMovingAllCars(){
+		for (Car car : this.cars)
+			car.move();
+		// update the table
+		this.cleanCarTable();
+	}
+
+	// pause according to speed
+	public void pauseAllCars(){
+		for (Car car : this.cars)
+			car.pauseCar();
+		// update the table
+	}
+
+	// update the table so that the cars already used won't be in the list
+	public void cleanCarTable(){
+		for (int i=0 ; i<this.cars.size(); i++){
+			if (this.cars.get(i).getLeftToRight()){
+				if (this.cars.get(i).getLeftPosition().absc>=this.game.width)
+					this.cars.remove(this.cars.get(i));
+			}else{
+				if (this.cars.get(i).getLeftPosition().absc+this.cars.get(i).getLength()<=0)
+					this.cars.remove(this.cars.get(i));
 			}
-			ticker = 0;
 		}
+	}
 
-		// Add all cars to the graphical interface
-		for(Car c : this.cars) {
-			c.addToGraphics();
+
+	// is safe : regarder si un case est safe en parcourant toute les voiture dans la lignes 
+	public boolean isSafe( Case anyCase){
+		for (Car car : this.cars){
+			if (car.occupyCase(anyCase))
+				return false;
 		}
-		// Try to add another car
-		randomlyAddCarIfPossible();
-
+		return true;
 	}
 
 
 
-	// Methods
-	//TODO: Add methods
-
 	/*
-	 * Fourni : mayAddCar() [renamed to randomlyAddCarIfPossible()], getFirstCase() et getBeforeFirstCase() 
+	 * Fourni : mayAddCar(), getFirstCase() et getBeforeFirstCase() 
 	 */
 
 	/**
-	 * If the first Case is empty,
-	 * Maybe add a new car (with probability equal to density)
+	 * Ajoute une voiture au debut de la voie avec probabilite egale e la
+	 * densite, si la premiere case de la voie est vide
 	 */
-	private void randomlyAddCarIfPossible() {
-		if (game.isCaseSafe(this.getFirstCase()) && game.isCaseSafe(this.getBeforeFirstCase())) {
-			//If cases are empty, throw the dice and maybe put a car
-			if (game.randomGen.nextDouble() < this.density) {
-				this.cars.add(new Car(game, getBeforeFirstCase(), leftToRight));
+	private void mayAddCar() {
+		if (isSafe(getFirstCase()) && isSafe(getBeforeFirstCase())) {
+			if (game.randomGen.nextDouble() < density) {
+				cars.add(new Car(game, getBeforeFirstCase(), this.leftToRight));
 			}
 		}
 	}

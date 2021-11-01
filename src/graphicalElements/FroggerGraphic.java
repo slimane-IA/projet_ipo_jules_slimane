@@ -18,6 +18,8 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 	private IFrog frog;
 	private JFrame frame;
 
+
+
 	public FroggerGraphic(int width, int height) {
 		this.width = width;
 		this.height = height;
