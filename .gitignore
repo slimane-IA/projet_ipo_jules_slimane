@@ -24,6 +24,6 @@ hs_err_pid*
 
 # intelliJ & vscode file
 .idea/
-.xml
+*.xml
 .vscode/
-.iml
+*.iml
