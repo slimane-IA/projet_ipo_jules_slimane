@@ -26,7 +26,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		elementsToDisplay = new ArrayList<Element>();
 
 		setBackground(Color.GRAY);
-		setPreferredSize(new Dimension(width * pixelByCase, height * pixelByCase));
+		setPreferredSize(new Dimension(this.width * pixelByCase, this.height * pixelByCase));
 
 		JFrame frame = new JFrame("Frogger");
 		this.frame = frame;
@@ -41,7 +41,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		super.paintComponent(g);
 		for (Element e : elementsToDisplay) {
 			g.setColor(e.color);
-			g.fillRect(pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord), pixelByCase, pixelByCase - 1);
+			g.fillRect(pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), pixelByCase, pixelByCase - 1);
 		}
 	}
 
@@ -54,16 +54,15 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
-			frog.move(Direction.up);
-			break;
+			frog.move(Direction.up); break;
 		case KeyEvent.VK_DOWN:
-			frog.move(Direction.down);
-			break;
+			frog.move(Direction.down); break;
 		case KeyEvent.VK_LEFT:
-			frog.move(Direction.left);
-			break;
+			frog.move(Direction.left); break;
 		case KeyEvent.VK_RIGHT:
-			frog.move(Direction.right);
+			frog.move(Direction.right); break;
+		/*case KeyEvent.VK_ENTER:
+			frog.pressedEnter(); break;*/
 		}
 	}
 

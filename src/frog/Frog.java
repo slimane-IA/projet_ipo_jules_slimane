@@ -20,36 +20,41 @@ public class Frog implements IFrog {
 	}
 
 	/**
-	 * Donne la position actuelle de la grenouille
-	 * @return
+	 * Gives the current position of the Frog
+	 * @return Case
 	 */
 	public Case getPosition(){
 		return this.caseFrog;
 	}
 
 	/**
-	 * Donne la direction de la grenouille, c'est e dire de son dernier mouvement
-	 * @return
+	 * Gives the direction of the Frog on its most recent move
+	 * @return Direction
 	 */
-
 	public Direction getDirection(){
 		return this.direction;
 	}
 
 	/**
-	 * Deplace la grenouille dans la direction donnee et teste la fin de partie
-	 * @param key
+	 * Puts isGameOn back to true in the game
+	 */
+	public void pressedEnter() {
+		this.game.isGameOn = true;
+	}
+
+	/**
+	 * Moves the Frog in the given direction and checks for game ending
+	 * @param key given direction
 	 */
 	public void move(Direction key){
-		// 1. deplacer la grenouille :
 		
+		// 1. move the Frog :
 		switch(key) {
 			case up:
-				if (this.caseFrog.ord+1<this.game.height)
-					this.caseFrog = new Case(this.caseFrog.absc,this.caseFrog.ord+1); // or + case.size
+				this.caseFrog = new Case(this.caseFrog.absc,this.caseFrog.ord+1); // or + case.size
 				break;
 			case down:
-				if (this.caseFrog.ord-1>=0)
+				if (this.caseFrog.ord-1 >= this.game.getMinLine())
 					this.caseFrog = new Case(this.caseFrog.absc,this.caseFrog.ord-1);
 				break;
 			case left:
@@ -62,10 +67,10 @@ public class Frog implements IFrog {
 				break;
 		}
 
-		// 2. set last direct
+		// 2. set new direction
 		this.direction=key;
 
-		// 3. tester la fin de la partie
+		// 3. check game ending
 		this.game.update();
 
 	}

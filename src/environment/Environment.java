@@ -8,35 +8,31 @@ import gameCommons.IEnvironment;
 
 public class Environment implements IEnvironment {
 	private Game game;
-	private ArrayList<Lane> lines = new ArrayList<Lane>();;
+	private ArrayList<Lane> lines = new ArrayList<Lane>();
+	private int lowestLine = 0; //Lowest line handled
+	private int highestLine = 0; //Highest line handled
 
     public Environment(Game game) {
 		this.game=game;
-		//Add the first line (density is 0 as there are no cars)
-		this.lines.add(new Lane(this.game, 0, 0.0));
-		//Add lines with cars
-        for(int i = 1; i < game.height - 1; ++i) {
-            this.lines.add(new Lane(this.game, i, this.game.defaultDensity));
-        }
-		//Add the last line (density is 0 as there are no cars)
-        this.lines.add(new Lane(this.game, this.game.height - 1, 0.0));
+
+		this.update();
     }
 	
 	/**
 	 * Checks if Case is safe, meaning the Frog can go there without dying
 	 * 
 	 * @param c the check Case
-	 * @return true if there's no danger
+	 * @return whether there's no danger
 	 */
 	public boolean isSafe(Case anyCase){
-		return this.lines.get(anyCase.ord).isSafe(anyCase);
+		return this.lines.get(anyCase.ord - lowestLine).isSafe(anyCase);
 	}
 
 	/**
 	 * Checks if a Case is a finishing one
 	 * 
 	 * @param c
-	 * @return true is the Case is a winning one
+	 * @return whether the Case is a winning one
 	 */
 	public boolean isWinningPosition(Case anyCase){
 		if (anyCase.ord == this.game.height - 1)
@@ -45,9 +41,31 @@ public class Environment implements IEnvironment {
 	}
 
 	/**
+	 * @return Lowest line handled
+	 */
+	public int getMinLine() {
+		return this.lowestLine;
+	}
+
+	/**
 	 * Updates the environment once
 	 */
 	public void update(){
+		
+		//Set lowestLine & highestLine
+		int curHeight = this.game.getFrogCase().ord;
+
+		//If lowestLine is too far below, remove lines
+		while(this.lowestLine < curHeight-5) {
+			this.lines.remove(0);
+			this.lowestLine++;
+		}
+		//If highestLine is not far enough above, add lines
+		while(this.highestLine < curHeight+this.game.height+5) {
+			this.lines.add(new Lane(this.game, this.highestLine, this.game.defaultDensity));
+			this.highestLine++;
+		}
+
 		for (Lane lane : this.lines)
 			lane.update();
 	}

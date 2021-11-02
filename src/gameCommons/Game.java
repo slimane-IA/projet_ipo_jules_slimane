@@ -13,29 +13,25 @@ public class Game {
 
 	public final Random randomGen = new Random();
 
-	// Caracteristique de la partie
+	//Game characteristics
 	public final int width;
 	public final int height;
 	public final int minSpeedInTimerLoops;
 	public final double defaultDensity;
+	public boolean isGameOn;
 
-	// Lien aux objets utilises
+	//Linking used objects
 	private IEnvironment environment;
 	private IFrog frog;
 	private IFroggerGraphics graphic;
 
 	/**
 	 * 
-	 * @param graphic
-	 *            l'interface graphique
-	 * @param width
-	 *            largeur en cases
-	 * @param height
-	 *            hauteur en cases
-	 * @param minSpeedInTimerLoop
-	 *            Vitesse minimale, en nombre de tour de timer avant deplacement
-	 * @param defaultDensity
-	 *            densite de voiture utilisee par defaut pour les routes
+	 * @param graphic The graphical interface
+	 * @param width in number of Case
+	 * @param height in number of Case
+	 * @param minSpeedInTimerLoop Minimum speed, in number of timer loops before move
+	 * @param defaultDensity of cars for lanes
 	 */
 	public Game(IFroggerGraphics graphic, int width, int height, int minSpeedInTimerLoop, double defaultDensity) {
 		super();
@@ -44,11 +40,11 @@ public class Game {
 		this.height = height;
 		this.minSpeedInTimerLoops = minSpeedInTimerLoop;
 		this.defaultDensity = defaultDensity;
+		this.isGameOn = true;
 	}
 
 	/**
-	 * Lie l'objet frog e la partie
-	 * 
+	 * Links frog object to game
 	 * @param frog
 	 */
 	public void setFrog(IFrog frog) {
@@ -56,8 +52,7 @@ public class Game {
 	}
 
 	/**
-	 * Lie l'objet environment a la partie
-	 * 
+	 * Links environment object to game
 	 * @param environment
 	 */
 	public void setEnvironment(IEnvironment environment) {
@@ -65,28 +60,21 @@ public class Game {
 	}
 
 	/**
-	 * 
-	 * @return l'interface graphique
+	 * @return the graphical interface
 	 */
 	public IFroggerGraphics getGraphic() {
 		return graphic;
 	}
 
 	/**
-	 * Teste si la partie est perdue et lance un ecran de fin approprie si tel
-	 * est le cas
-	 * 
-	 * @return true si le partie est perdue
+	 * @return whether the game is over
 	 */
 	public boolean testLose() {
 		return !this.environment.isSafe(this.frog.getPosition());
 	}
 
 	/**
-	 * Teste si la partie est gagnee et lance un ecran de fin approprie si tel
-	 * est le cas
-	 * 
-	 * @return true si la partie est gagnee
+	 * @return whether the game is won
 	 */
 	public boolean testWin() {
 		return this.environment.isWinningPosition(this.frog.getPosition());
@@ -100,19 +88,33 @@ public class Game {
 	}
 
 	/**
-	 * Actualise l'environnement, affiche la grenouille et verifie la fin de
-	 * partie.
+	 * @return Case of the game's Frog
+	 */
+	public Case getFrogCase() {
+		return this.frog.getPosition();
+	}
+
+	/**
+	 * @return Lowest line handled by the environment
+	 */
+	public int getMinLine() {
+		return this.environment.getMinLine();
+	}
+
+	/**
+	 * Updates the environment, displays the frog, and checks the endgame
 	 */
 	public void update() {
-		graphic.clear();
-		environment.update();
-		this.graphic.add(new Element(frog.getPosition(), Color.GREEN));
-		//test win test lose
-		if (testWin())
-			this.graphic.endGameScreen("bravo! you have just won the game");
-		//      3.2 testLose
-		if (testLose())
-			this.graphic.endGameScreen("game over! you lost");
+
+		if(this.isGameOn) {
+			this.graphic.clear();
+			this.environment.update();
+			this.graphic.add(new Element(frog.getPosition(), Color.GREEN));
+		}
+		if(this.testLose()) { //Not doing if/else is intentional
+			this.graphic.endGameScreen("Game over! Your score: "+this.getFrogCase().ord);
+			this.isGameOn = false;
+		}
 	}
 
 }

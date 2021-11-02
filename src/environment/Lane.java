@@ -14,7 +14,6 @@ public class Lane {
 	private double density;
 	private int waitToMove;
 
-	// TODO : Constructeur(s)
 	public Lane(Game game, int ord, double density){
 		this.game = game;
 		this.ord = ord;
@@ -48,8 +47,6 @@ public class Lane {
 		}
 		
 	}
-
-	// TODO : ajout de methodes
 
 	public void startMovingAllCars(){
 		for (Car car : this.cars)

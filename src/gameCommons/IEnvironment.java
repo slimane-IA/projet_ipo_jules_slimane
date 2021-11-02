@@ -5,25 +5,28 @@ import util.Case;
 public interface IEnvironment {
 
 	/**
-	 * Teste si une case est sure, c'est e dire que la grenouille peut s'y poser
-	 * sans mourir
+	 * Checks if Case is safe, meaning the Frog can go there without dying
 	 * 
-	 * @param c
-	 *            la case e tester
-	 * @return vrai s'il n'y a pas danger
+	 * @param c the check Case
+	 * @return true if there's no danger
 	 */
 	public boolean isSafe(Case c);
 
 	/**
-	 * Teste si la case est une case d'arrivee
+	 * Checks if a Case is a finishing one
 	 * 
 	 * @param c
-	 * @return vrai si la case est une case de victoire
+	 * @return true is the Case is a winning one
 	 */
 	public boolean isWinningPosition(Case c);
 
 	/**
-	 * Effectue une etape d'actualisation de l'environnement
+	 * @return Lowest handled line
+	 */
+	public int getMinLine();
+
+	/**
+	 * Updates the environment once
 	 */
 	public void update();
 

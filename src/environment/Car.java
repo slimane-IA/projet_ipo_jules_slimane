@@ -14,7 +14,6 @@ public class Car {
 	private final Color colorLtR = Color.BLACK;
 	private final Color colorRtL = Color.BLUE;
 
-	//TODO Constructeur(s)
 	public Car (Game game, Case leftPosition, boolean leftToRight){
 		this.game = game;
 		this.leftPosition = leftPosition;
@@ -35,7 +34,6 @@ public class Car {
 		return this.length;
 	}
 	
-	//TODO : ajout de methodes
 	// move qui comme move pour frog mais acev directtion left or right 
 	public void move(){
 		if(leftToRight){
