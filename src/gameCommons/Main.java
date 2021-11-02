@@ -15,26 +15,26 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		//Caract?ristiques du jeu
+		//Caractéristiques du jeu
 		int width = 26;
 		int height = 20;
 		int tempo = 100;
 		int minSpeedInTimerLoops = 3;
 		double defaultDensity = 0.2;
 		
-		//Cr?ation de l'interface graphique
+		//Creation of the graphical interface
 		IFroggerGraphics graphic = new FroggerGraphic(width, height);
-		//Cr?ation de la partie
+		//Création de la partie
 		Game game = new Game(graphic, width, height, minSpeedInTimerLoops, defaultDensity);
-		//Cr?ation et liason de la grenouille
+		//Creation and linking of the frog
 		IFrog frog = new Frog(game);
 		game.setFrog(frog);
 		graphic.setFrog(frog);
-		//Cr?ation et liaison de l'environnement
+		//Creation and linking of the environment
 		IEnvironment env = new Environment(game);
 		game.setEnvironment(env);
-				
-		//Boucle principale : l'environnement s'acturalise tous les tempo milisecondes
+		
+		//Main loop: update the environment every tempo milliseconds
 		Timer timer = new Timer(tempo, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

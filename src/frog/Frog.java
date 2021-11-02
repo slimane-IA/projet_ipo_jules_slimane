@@ -1,10 +1,7 @@
 package frog;
 
-import java.time.format.TextStyle;
-
 import gameCommons.Game;
 import gameCommons.IFrog;
-import graphicalElements.FroggerGraphic;
 import util.Direction;
 import util.Case;
 
