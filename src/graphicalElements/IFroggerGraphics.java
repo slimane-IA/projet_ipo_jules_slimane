@@ -35,7 +35,7 @@ public interface IFroggerGraphics {
     public void endGameScreen(String s) ;
 
     /**
-     * Lance un ecran de fin de partie
+     * afficher un text en haut de l'ecran 
      * @param message le texte e afficher en top
      */
     public void addLabelTop(String s);
