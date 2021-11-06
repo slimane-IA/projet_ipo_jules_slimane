@@ -104,6 +104,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 	}
 
 	
+	
 	public void addLabelTop(String s) {
 		JLabel label = new JLabel(s);
 		label.setFont(new Font("Verdana", 1, 20));
