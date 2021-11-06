@@ -17,6 +17,8 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 	private int height;
 	private IFrog frog;
 	private JFrame frame;
+	private JLabel timer;
+
 
 
 
@@ -35,6 +37,15 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		frame.pack();
 		frame.setVisible(true);
 		frame.addKeyListener(this);
+
+		// init timer: 
+		JLabel label = new JLabel("");
+		this.timer=label;
+		label.setFont(new Font("Verdana", 1, 20));
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setVerticalAlignment(SwingConstants.TOP);
+		label.setSize(this.getSize());
+		
 	}
 
 	public void paintComponent(Graphics g) {
@@ -78,6 +89,8 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		this.frog = frog;
 	}
 
+	
+
 	public void endGameScreen(String s) {
 		frame.remove(this);
 		JLabel label = new JLabel(s);
@@ -85,8 +98,45 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setSize(this.getSize());
 		frame.getContentPane().add(label);
+		frame.getContentPane().add(this.timer);
 		frame.repaint();
 
 	}
+
+	
+	public void addLabelTop(String s) {
+		JLabel label = new JLabel(s);
+		label.setFont(new Font("Verdana", 1, 20));
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setVerticalAlignment(SwingConstants.TOP);
+		label.setSize(this.getSize());
+		this.add(label);
+		this.timer=label;
+	}
+
+	// timer methods
+	// setText
+	public void setTimerText(String text){
+		this.timer.setText(text);
+	}
+	// display
+	public void displayTimer(){
+		this.add(this.timer);
+	}
+	// hide
+	public void hideTimer(){
+		this.remove(this.timer);
+	}
+
+	public JLabel getTimer(){
+		return this.timer;
+	}
+	public void setTimer(JLabel timer){
+		this.timer=timer;
+	}
+
+	 
+
+
 
 }

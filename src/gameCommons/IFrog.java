@@ -28,4 +28,6 @@ public interface IFrog {
 	 */
 	public void move(Direction key);
 
+
+
 }

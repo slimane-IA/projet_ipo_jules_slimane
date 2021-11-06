@@ -27,6 +27,7 @@ public class Frog implements IFrog {
 		return this.caseFrog;
 	}
 
+
 	/**
 	 * Gives the direction of the Frog on its most recent move
 	 * @return Direction

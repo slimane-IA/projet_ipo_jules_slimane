@@ -14,7 +14,7 @@ public class Environment implements IEnvironment {
 
     public Environment(Game game) {
 		this.game=game;
-
+		
 		this.update();
     }
 	

@@ -2,6 +2,8 @@ package graphicalElements;
 
 import gameCommons.IFrog;
 
+import javax.swing.*;
+
 public interface IFroggerGraphics {
 	
 	/**
@@ -30,5 +32,27 @@ public interface IFroggerGraphics {
      * Lance un ecran de fin de partie
      * @param message le texte e afficher
      */
-    public void endGameScreen(String message);
+    public void endGameScreen(String s) ;
+
+    /**
+     * Lance un ecran de fin de partie
+     * @param message le texte e afficher en top
+     */
+    public void addLabelTop(String s);
+
+ 
+
+
+    	// timer methods
+	// setText
+	public void setTimerText(String text);
+	// display
+	public void displayTimer();
+	// hide
+	public void hideTimer();
+    // geters, setters
+    public JLabel getTimer();
+	public void setTimer(JLabel timer);
+
+	
 }
