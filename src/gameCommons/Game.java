@@ -108,6 +108,7 @@ public class Game {
 	 * Updates the environment, displays the frog, and checks the endgame
 	 */
 	public void update() {
+		// timer update():
 		this.graphic.setTimerText("time (mili-seconds):"+this.timer);
 		this.graphic.displayTimer();
 		if(this.isGameOn) {
