@@ -13,14 +13,16 @@ public class Lane {
 	private boolean leftToRight;
 	private double density;
 	private int waitToMove;
+	boolean isRondin;
 
-	public Lane(Game game, int ord, double density){
+	public Lane(Game game, int ord, double density, boolean isRondin){
 		this.game = game;
 		this.ord = ord;
 		this.speed = this.game.randomGen.nextInt(this.game.minSpeedInTimerLoops)+1;
 		this.leftToRight= this.game.randomGen.nextBoolean();
 		this.density = density;
 		this.waitToMove=this.speed;
+		this.isRondin = isRondin;
 
 	}
 

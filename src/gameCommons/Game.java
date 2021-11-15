@@ -21,6 +21,8 @@ public class Game {
 	public final double defaultDensity;
 	public boolean isGameOn;
 	public int timer;
+	//today
+	private int ticSeconds;
 
 	//Linking used objects
 	private IEnvironment environment;
@@ -44,6 +46,8 @@ public class Game {
 		this.defaultDensity = defaultDensity;
 		this.isGameOn = true;
 		this.timer=0;
+		//today
+		this.ticSeconds=3;
 	}
 
 	/**
@@ -108,14 +112,22 @@ public class Game {
 	 * Updates the environment, displays the frog, and checks the endgame
 	 */
 	public void update() {
+		//today
 		// timer update():
-		this.graphic.setTimerText("time (mili-seconds):"+this.timer);
-		this.graphic.displayTimer();
+		if(this.ticSeconds>8 && this.isGameOn){
+			this.graphic.setTimerText("time (seconds):"+this.timer);
+			this.graphic.displayTimer();
+			this.timer++;
+			this.ticSeconds=0;
+		}
+		;
+
 		if(this.isGameOn) {
 			this.graphic.clear();
 			this.environment.update();
 			this.graphic.add(new Element(frog.getPosition(), Color.GREEN));
-			this.timer++;
+			//today
+			this.ticSeconds++;
 		}
 		if(this.testLose()) { //Not doing if/else is intentional
 			this.graphic.endGameScreen("Game over! Your score: "+this.getFrogCase().ord);

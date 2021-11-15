@@ -62,7 +62,7 @@ public class Environment implements IEnvironment {
 		}
 		//If highestLine is not far enough above, add lines
 		while(this.highestLine < curHeight+this.game.height+5) {
-			this.lines.add(new Lane(this.game, this.highestLine, this.game.defaultDensity));
+			this.lines.add(new Lane(this.game, this.highestLine, this.game.defaultDensity,true));
 			this.highestLine++;
 		}
 
