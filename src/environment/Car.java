@@ -11,14 +11,15 @@ public class Car {
 	private Case leftPosition;
 	private boolean leftToRight;
 	private int length;
-	private final Color colorLtR = Color.BLACK;
-	private final Color colorRtL = Color.BLUE;
+	private Color color = Color.pink;//new Color(186, 140, 99); // by defautl to rondin color
+	private boolean isRondin;
 
-	public Car (Game game, Case leftPosition, boolean leftToRight){
+	public Car (Game game, Case leftPosition, boolean leftToRight, boolean isRondin){
 		this.game = game;
 		this.leftPosition = leftPosition;
 		this.leftToRight = leftToRight;
 		this.length= this.game.randomGen.nextInt(3);
+		this.isRondin=isRondin;
 	}
 
 	//getters:
@@ -66,12 +67,14 @@ public class Car {
 	/* Fourni : addToGraphics() permettant d'ajouter un element graphique correspondant a la voiture*/
 	private void addToGraphics() {
 		for (int i = 0; i < length; i++) {
-			Color color = colorRtL;
-			if (this.leftToRight){
-				color = colorLtR;
+			if(!isRondin){
+				this.color = Color.BLUE;
+				if (this.leftToRight){
+					this.color = Color.BLACK;
+				}
 			}
 			game.getGraphic()
-					.add(new Element(leftPosition.absc + i, leftPosition.ord, color));
+					.add(new Element(leftPosition.absc + i, leftPosition.ord, this.color));
 		}
 	}
 

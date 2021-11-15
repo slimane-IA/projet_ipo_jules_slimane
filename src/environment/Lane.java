@@ -1,6 +1,7 @@
 package environment;
 
 import java.util.ArrayList;
+import java.awt.Color;
 
 import util.Case;
 import gameCommons.Game;
@@ -13,7 +14,8 @@ public class Lane {
 	private boolean leftToRight;
 	private double density;
 	private int waitToMove;
-	boolean isRondin;
+	//private final Color color;
+	private boolean isRondin;
 
 	public Lane(Game game, int ord, double density, boolean isRondin){
 		this.game = game;
@@ -23,6 +25,12 @@ public class Lane {
 		this.density = density;
 		this.waitToMove=this.speed;
 		this.isRondin = isRondin;
+		// if(isRondin){
+		// 	this.color=Color.CYAN;
+		// }else{
+		// 	this.color=Color.white;
+		// }
+		
 
 	}
 
@@ -80,11 +88,19 @@ public class Lane {
 
 	// is safe : regarder si un case est safe en parcourant toute les voiture dans la lignes 
 	public boolean isSafe( Case anyCase){
-		for (Car car : this.cars){
-			if (car.occupyCase(anyCase))
-				return false;
+		if(!this.isRondin){
+			for (Car car : this.cars){
+				if (car.occupyCase(anyCase))
+					return false;
+			}
+			return true;
+		}else{
+			for (Car car : this.cars){
+				if (!car.occupyCase(anyCase))
+					return false;
+			}
+			return true;
 		}
-		return true;
 	}
 
 
@@ -100,7 +116,7 @@ public class Lane {
 	private void mayAddCar() {
 		if (isSafe(getFirstCase()) && isSafe(getBeforeFirstCase())) {
 			if (game.randomGen.nextDouble() < density) {
-				cars.add(new Car(game, getBeforeFirstCase(), this.leftToRight));
+				cars.add(new Car(game, getBeforeFirstCase(), this.leftToRight,this.isRondin));
 			}
 		}
 	}

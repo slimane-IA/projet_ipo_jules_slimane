@@ -62,7 +62,17 @@ public class Environment implements IEnvironment {
 		}
 		//If highestLine is not far enough above, add lines
 		while(this.highestLine < curHeight+this.game.height+5) {
-			this.lines.add(new Lane(this.game, this.highestLine, this.game.defaultDensity,true));
+			//20% chance to get a river || >5 because we dont want to start with rivers directly
+			if(this.lines.size()>5 && this.game.randomGen.nextBoolean()){//&& ((this.game.randomGen.nextInt(5) == 0) ? true : false)){
+				//for(int i=0 ; i<4; i++){
+					this.lines.add(new Lane(this.game, this.highestLine, this.game.defaultDensity,true));
+				//}
+			}else{
+				//for(int i=0 ; i<4; i++){
+					this.lines.add(new Lane(this.game, this.highestLine, this.game.defaultDensity,false));
+				//}			
+			}
+			
 			this.highestLine++;
 		}
 
