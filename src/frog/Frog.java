@@ -27,6 +27,10 @@ public class Frog implements IFrog {
 		return this.caseFrog;
 	}
 
+	public void setPosition(Case anyCase ){
+		this.caseFrog=anyCase;
+	}
+
 
 	/**
 	 * Gives the direction of the Frog on its most recent move

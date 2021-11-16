@@ -28,6 +28,9 @@ public interface IFrog {
 	 */
 	public void move(Direction key);
 
+    public void setPosition(Case leftPosition);
+
+
 
 
 }

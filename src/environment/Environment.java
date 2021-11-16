@@ -1,5 +1,6 @@
 package environment;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import util.Case;
@@ -11,6 +12,7 @@ public class Environment implements IEnvironment {
 	private ArrayList<Lane> lines = new ArrayList<Lane>();
 	private int lowestLine = 0; //Lowest line handled
 	private int highestLine = 0; //Highest line handled
+	private int timerForRiver=0;
 
     public Environment(Game game) {
 		this.game=game;
@@ -60,17 +62,24 @@ public class Environment implements IEnvironment {
 			this.lines.remove(0);
 			this.lowestLine++;
 		}
+
 		//If highestLine is not far enough above, add lines
 		while(this.highestLine < curHeight+this.game.height+5) {
-			//20% chance to get a river || >5 because we dont want to start with rivers directly
-			if(this.lines.size()>5 && this.game.randomGen.nextBoolean()){//&& ((this.game.randomGen.nextInt(5) == 0) ? true : false)){
-				//for(int i=0 ; i<4; i++){
-					this.lines.add(new Lane(this.game, this.highestLine, this.game.defaultDensity,true));
-				//}
+			if(this.timerForRiver>0){
+				this.lines.add(new Lane(this.game, this.highestLine, this.game.defaultDensity,true));
+				if(this.timerForRiver%2==0)
+					this.lines.get(this.lines.size()-1).setLeftToRight(true);
+				else	
+				this.lines.get(this.lines.size()-1).setLeftToRight(false);
+				this.timerForRiver--;
 			}else{
-				//for(int i=0 ; i<4; i++){
-					this.lines.add(new Lane(this.game, this.highestLine, this.game.defaultDensity,false));
-				//}			
+				this.lines.add(new Lane(this.game, this.highestLine, 0.1,false));
+				this.timerForRiver--;		
+			}
+			//20% chance to get a river || >5 because we dont want to start with rivers directly
+			if(this.timerForRiver<-4 && this.lines.size()>3 &&this.game.randomGen.nextBoolean()){
+					this.timerForRiver=4;
+					//this.game.getGraphic().add(new Element(new Case(0,0), Color.blue));
 			}
 			
 			this.highestLine++;

@@ -58,6 +58,10 @@ public class Game {
 		this.frog = frog;
 	}
 
+	public IFrog getFrog(){
+		return this.frog;
+	}
+
 	/**
 	 * Links environment object to game
 	 * @param environment

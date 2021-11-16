@@ -3,6 +3,7 @@ package environment;
 import java.awt.Color;
 
 import util.Case;
+import util.Direction;
 import gameCommons.Game;
 import graphicalElements.Element;
 
@@ -13,6 +14,7 @@ public class Car {
 	private int length;
 	private Color color = Color.pink;//new Color(186, 140, 99); // by defautl to rondin color
 	private boolean isRondin;
+	private boolean frogOnIt=false;
 
 	public Car (Game game, Case leftPosition, boolean leftToRight, boolean isRondin){
 		this.game = game;
@@ -34,14 +36,30 @@ public class Car {
 	public  int getLength(){
 		return this.length;
 	}
+
+	public  boolean getFrogOnIt(){
+		return this.frogOnIt;
+	}
+
+
 	
 	// move qui comme move pour frog mais acev directtion left or right 
 	public void move(){
+
+		//check if car on it:
+		if(this.isRondin && this.occupyCase(this.game.getFrogCase()) ){
+			this.frogOnIt=true;
+		}else{
+			this.frogOnIt=false;
+		}
+		
 		if(leftToRight){
 			this.leftPosition = new Case(this.leftPosition.absc+1,this.leftPosition.ord);
 		}else{
 			this.leftPosition = new Case(this.leftPosition.absc-1,this.leftPosition.ord);
 		}
+		
+		
 
 		// mise-a-jour graphic
 		this.addToGraphics();
@@ -73,9 +91,9 @@ public class Car {
 					this.color = Color.BLACK;
 				}
 			}
-			game.getGraphic()
-					.add(new Element(leftPosition.absc + i, leftPosition.ord, this.color));
+			game.getGraphic().add(new Element(leftPosition.absc + i, leftPosition.ord, this.color));
 		}
+		game.getGraphic().add(new Element(leftPosition.absc + length, leftPosition.ord, Color.GRAY));
 	}
 
 }
