@@ -8,11 +8,11 @@ import gameCommons.Game;
 import gameCommons.IEnvironment;
 
 public class Environment implements IEnvironment {
-	private Game game;
-	private ArrayList<Lane> lines = new ArrayList<Lane>();
-	private int lowestLine = 0; //Lowest line handled
-	private int highestLine = 0; //Highest line handled
-	private int timerForRiver=0;
+	protected Game game;
+	protected ArrayList<Lane> lines = new ArrayList<Lane>();
+	protected int lowestLine = 0; //Lowest line handled
+	protected int highestLine = 0; //Highest line handled
+	protected int timerForRiver=0;
 
     public Environment(Game game) {
 		this.game=game;

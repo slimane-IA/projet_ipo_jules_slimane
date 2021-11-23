@@ -8,6 +8,7 @@ import util.Direction;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
 public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListener {
@@ -27,7 +28,7 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		this.height = height;
 		elementsToDisplay = new ArrayList<Element>();
 
-		setBackground(Color.gray);
+		setBackground(Color.GRAY);
 		setPreferredSize(new Dimension(this.width * pixelByCase, this.height * pixelByCase));
 
 		JFrame frame = new JFrame("Frogger");
@@ -37,7 +38,6 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		frame.pack();
 		frame.setVisible(true);
 		frame.addKeyListener(this);
-		frame.getContentPane().setBackground( Color.red );
 
 		// init timer: 
 		JLabel label = new JLabel("");
@@ -49,11 +49,21 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		
 	}
 
+	// getters:
+	public int getPixelByCase(){
+		return this.pixelByCase;
+	}
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		for (Element e : elementsToDisplay) {
-			g.setColor(e.color);
-			g.fillRect(pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), pixelByCase, pixelByCase - 1);
+			if (e.image!=null){
+				g.drawImage(e.image, pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), 16, 16, (Graphics)null);//to check
+			}else{
+				g.setColor(e.color);
+				g.fillRect(pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), pixelByCase, pixelByCase - 1);
+			}
+			
 		}
 	}
 

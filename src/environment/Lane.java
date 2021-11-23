@@ -8,15 +8,15 @@ import util.Direction;
 import gameCommons.Game;
 
 public class Lane {
-	private Game game;
-	private int ord;
-	private int speed;
-	private ArrayList<Car> cars = new ArrayList<>();
-	private boolean leftToRight;
-	private double density;
-	private int waitToMove;
-	//private final Color color;
-	private boolean isRondin;
+	protected Game game;
+	protected int ord;
+	protected int speed;
+	protected ArrayList<Car> cars = new ArrayList<>();
+	protected boolean leftToRight;
+	protected double density;
+	protected int waitToMove;
+	//protected final Color color;
+	protected boolean isRondin;
 
 	public Lane(Game game, int ord, double density, boolean isRondin){
 		this.game = game;

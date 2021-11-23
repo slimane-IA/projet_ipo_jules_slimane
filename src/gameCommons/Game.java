@@ -5,10 +5,16 @@ import java.awt.Color;
 import java.util.Random;
 
 import util.Case;
+import frog.Frog;
 
 import graphicalElements.Element;
 import graphicalElements.IFroggerGraphics;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
+
 
 public class Game {
 
@@ -112,26 +118,18 @@ public class Game {
 		return this.environment.getMinLine();
 	}
 
-	/**
+		/**
 	 * Updates the environment, displays the frog, and checks the endgame
 	 */
 	public void update() {
-		//today
 		// timer update():
-		if(this.ticSeconds>8 && this.isGameOn){
-			this.graphic.setTimerText("time (seconds):"+this.timer);
-			this.graphic.displayTimer();
-			this.timer++;
-			this.ticSeconds=0;
-		}
-		;
-
+		this.graphic.setTimerText("time (mili-seconds):"+this.timer);
+		this.graphic.displayTimer();
 		if(this.isGameOn) {
 			this.graphic.clear();
 			this.environment.update();
 			this.graphic.add(new Element(frog.getPosition(), Color.GREEN));
-			//today
-			this.ticSeconds++;
+			this.timer++;
 		}
 		if(this.testLose()) { //Not doing if/else is intentional
 			this.graphic.endGameScreen("Game over! Your score: "+this.getFrogCase().ord);

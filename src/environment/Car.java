@@ -1,20 +1,33 @@
 package environment;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.*;
 
+import javax.swing.DefaultBoundedRangeModel;
+
+import java.awt.image.BufferedImage;
 import util.Case;
 import util.Direction;
+import util.ImageG;
 import gameCommons.Game;
 import graphicalElements.Element;
+import java.awt.Image;
+
 
 public class Car {
-	private Game game;
-	private Case leftPosition;
-	private boolean leftToRight;
-	private int length;
-	private Color color = Color.pink;//new Color(186, 140, 99); // by defautl to rondin color
-	private boolean isRondin;
-	private boolean frogOnIt=false;
+	protected Game game;
+	protected Case leftPosition;
+	protected boolean leftToRight;
+	protected int length;
+	protected Color color = Color.pink;//new Color(186, 140, 99); // by defautl to rondin color
+	protected boolean isRondin;
+	protected boolean frogOnIt=false;
+
+
+	protected ArrayList<ImageG> image ;
+
+
 
 	public Car (Game game, Case leftPosition, boolean leftToRight, boolean isRondin){
 		this.game = game;
@@ -22,6 +35,7 @@ public class Car {
 		this.leftToRight = leftToRight;
 		this.length= this.game.randomGen.nextInt(3);
 		this.isRondin=isRondin;
+		this.image = new ArrayList<ImageG>();
 	}
 
 	//getters:
@@ -39,6 +53,23 @@ public class Car {
 
 	public  boolean getFrogOnIt(){
 		return this.frogOnIt;
+	}
+
+	// setters: 
+	public void setImage() {
+		if(!this.isRondin){
+			for ( int i=0; i<this.length;i++){
+				if (leftToRight){
+					this.image.add(new ImageG("c"+this.length+"l"+i));
+				}else{
+					this.image.add(new ImageG("c"+this.length+"r"+i+".png"));
+				}
+			}
+		}else{
+			for ( int i=0; i<this.length;i++){
+				this.image.add(new ImageG("rondin.png"));			
+			}
+		}
 	}
 
 
@@ -81,19 +112,13 @@ public class Car {
 	}
 
 	
-	
 	/* Fourni : addToGraphics() permettant d'ajouter un element graphique correspondant a la voiture*/
 	private void addToGraphics() {
 		for (int i = 0; i < length; i++) {
-			if(!isRondin){
-				this.color = Color.BLUE;
-				if (this.leftToRight){
-					this.color = Color.BLACK;
-				}
-			}
-			game.getGraphic().add(new Element(leftPosition.absc + i, leftPosition.ord, this.color));
+			game.getGraphic().add(new Element(leftPosition.absc + i, leftPosition.ord, this.color,this.image.get(i)));
 		}
 		game.getGraphic().add(new Element(leftPosition.absc + length, leftPosition.ord, Color.GRAY));
 	}
+
 
 }

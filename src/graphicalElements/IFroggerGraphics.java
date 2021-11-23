@@ -54,5 +54,8 @@ public interface IFroggerGraphics {
     public JLabel getTimer();
 	public void setTimer(JLabel timer);
 
+
+  
+
 	
 }
