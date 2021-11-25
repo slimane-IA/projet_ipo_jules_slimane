@@ -1,14 +1,19 @@
 package graphicalElements;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import gameCommons.IFrog;
 import util.Direction;
+import util.ImageG;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListener {
@@ -19,6 +24,10 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 	private IFrog frog;
 	private JFrame frame;
 	private JLabel timer;
+
+	// testing
+	private BufferedImage img;
+	private ImageG imgS;
 
 
 
@@ -46,19 +55,38 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setVerticalAlignment(SwingConstants.TOP);
 		label.setSize(this.getSize());
-		
+
+		//testing 
+		//File file = new File("/src/images/c2l1.png");
+		//System.out.println("==========="+ file.getAbsolutePath()+ "============");
+		// try {
+		// 	img = ImageIO.read(FroggerGraphic.class.getResource("/images/" + "c2l1.png"));
+			
+		// }
+		// catch(IOException exc) {
+		// 	exc.printStackTrace();
+		// }
+		imgS = new ImageG("c2l1.png");
+		img = imgS.image;
+
+		//end testing 
+			
 	}
 
 	// getters:
 	public int getPixelByCase(){
 		return this.pixelByCase;
 	}
-
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		for (Element e : elementsToDisplay) {
 			if (e.image!=null){
-				g.drawImage(e.image, pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), 16, 16, (Graphics)null);//to check
+				//System.out.println(img);
+				//g.drawImage(e.image.get(0).image, (pixelByCase * (e.absc)), pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), 16, 16, this);//to check
+				for (int i=0; i<e.image.size();i++){
+					g.drawImage(e.image.get(i).image, (pixelByCase * (e.absc+i)), pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), 16, 16, null );//to check
+				}
 			}else{
 				g.setColor(e.color);
 				g.fillRect(pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), pixelByCase, pixelByCase - 1);

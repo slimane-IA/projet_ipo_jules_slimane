@@ -13,6 +13,7 @@ import util.ImageG;
 import gameCommons.Game;
 import graphicalElements.Element;
 import java.awt.Image;
+import util.ImageG;
 
 
 public class Car {
@@ -25,7 +26,7 @@ public class Car {
 	protected boolean frogOnIt=false;
 
 
-	protected ArrayList<ImageG> image ;
+	public ArrayList<ImageG> image ;
 
 
 
@@ -36,6 +37,7 @@ public class Car {
 		this.length= this.game.randomGen.nextInt(3);
 		this.isRondin=isRondin;
 		this.image = new ArrayList<ImageG>();
+		setImage();
 	}
 
 	//getters:
@@ -57,10 +59,11 @@ public class Car {
 
 	// setters: 
 	public void setImage() {
-		if(!this.isRondin){
+		 if(!this.isRondin){
 			for ( int i=0; i<this.length;i++){
 				if (leftToRight){
-					this.image.add(new ImageG("c"+this.length+"l"+i));
+					this.image.add(new ImageG("c"+this.length+"l"+i+".png"));
+					
 				}else{
 					this.image.add(new ImageG("c"+this.length+"r"+i+".png"));
 				}
@@ -115,7 +118,7 @@ public class Car {
 	/* Fourni : addToGraphics() permettant d'ajouter un element graphique correspondant a la voiture*/
 	private void addToGraphics() {
 		for (int i = 0; i < length; i++) {
-			game.getGraphic().add(new Element(leftPosition.absc + i, leftPosition.ord, this.color,this.image.get(i)));
+			game.getGraphic().add(new Element(leftPosition.absc + i, leftPosition.ord, this.color,this.image));
 		}
 		game.getGraphic().add(new Element(leftPosition.absc + length, leftPosition.ord, Color.GRAY));
 	}

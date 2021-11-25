@@ -1,6 +1,7 @@
 package graphicalElements;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -10,7 +11,7 @@ import util.ImageG;
 
 public class Element extends Case {
     public final Color color;
-    public final ImageG image;
+    public ArrayList<ImageG> image;
 
     public Element(int absc, int ord, Color color) {
         super(absc, ord);
@@ -23,13 +24,13 @@ public class Element extends Case {
         this.image=null;
     }
     
-    public Element(Case c, Color color, ImageG image) {
+    public Element(Case c, Color color, ArrayList<ImageG> image) {
         super(c.absc, c.ord);
         this.color = color;
         this.image = image;
     }
 
-    public Element(int absc, int ord, Color color,ImageG image) {
+    public Element(int absc, int ord, Color color,ArrayList<ImageG> image) {
         super(absc, ord);
         this.color = color;
         this.image=image;
