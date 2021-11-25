@@ -1,7 +1,8 @@
 # Rapport IPO
-Slimane Mesbah - Jules Rohault de Fleury
-
+Slimane Mesbah - Jules Rohault de Fleury  
 Projet IPO 2021 - L2 Info - Groupe 1
+
+---
 
 Les premières implémentations se sont concentrées sur l'implémentation des méthodes de base, nécessaires pour que le jeu soit possible. Ces implémentations se sont majoritairement centrées autour de la classe Frog. Les difficultés à ce moment se sont concentrées sur la mise en place du projet lui-même, par exemple avec le fonctionnement de Git, d'IntelliJ, et de VSCode.
 
