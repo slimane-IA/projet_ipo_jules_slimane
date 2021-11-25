@@ -19,7 +19,7 @@ public class Main {
 		int width = 26;
 		int height = 20;
 		int tempo = 100;
-		int minSpeedInTimerLoops = 3;
+		int minSpeedInTimerLoops = 1;
 		double defaultDensity = 0.3;
 		
 		//Creation of the graphical interface
