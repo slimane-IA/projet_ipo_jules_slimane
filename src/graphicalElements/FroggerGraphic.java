@@ -1,6 +1,6 @@
 package graphicalElements;
 
-import javax.imageio.ImageIO;
+//import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import gameCommons.Game;
@@ -11,10 +11,10 @@ import util.ImageG;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.File;
-import java.io.IOException;
+//import java.awt.image.BufferedImage;
+//import java.awt.image.ImageObserver;
+//import java.io.File;
+//import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,8 +30,8 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 	protected Game game;
 
 	// testing
-	private BufferedImage img;
-	private ImageG imgS;
+	//private BufferedImage img;
+	//private ImageG imgS;
 
 
 
@@ -72,8 +72,8 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		// catch(IOException exc) {
 		// 	exc.printStackTrace();
 		// }
-		imgS = new ImageG("c2l1.png");
-		img = imgS.image;
+		//imgS = new ImageG("c2l1.png");
+		//img = imgS.image;
 
 		//end testing 
 			

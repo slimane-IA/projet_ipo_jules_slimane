@@ -1,6 +1,6 @@
 package frog;
 
-import java.awt.image.BufferedImage;
+//import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import gameCommons.Game;

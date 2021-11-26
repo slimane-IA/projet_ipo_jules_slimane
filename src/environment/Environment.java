@@ -1,14 +1,12 @@
 package environment;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import util.Case;
 import gameCommons.Game;
-import gameCommons.IEnvironment;
 
-public class Environment implements IEnvironment {
+public class Environment {
 	protected Game game;
 	protected ArrayList<Lane> lines = new ArrayList<Lane>();
 	protected HashMap<Integer,Boolean> isRondin = new HashMap<Integer,Boolean>();

@@ -2,23 +2,23 @@
 package gameCommons;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+//import java.io.File;
+//import java.io.IOException;
+//import java.util.ArrayList;
 import java.util.Random;
-import java.awt.Graphics.*;
+//import java.awt.Graphics.*;
 
 import util.Case;
-import util.ImageG;
-import frog.Frog;
+//import util.ImageG;
+//import frog.Frog;
 
 import graphicalElements.Element;
 import graphicalElements.IFroggerGraphics;
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+//import javax.imageio.ImageIO;
+//import javax.swing.ImageIcon;
+//import javax.swing.JLabel;
 
 import environment.Environment;
 
@@ -39,7 +39,7 @@ public class Game {
 	private int ticSeconds;
 
 	//Linking used objects
-	private IEnvironment environment;
+	private Environment environment;
 	private IFrog frog;
 	private IFroggerGraphics graphic;
 
@@ -80,7 +80,7 @@ public class Game {
 	 * Links environment object to game
 	 * @param environment
 	 */
-	public void setEnvironment(IEnvironment environment) {
+	public void setEnvironment(Environment environment) {
 		this.environment = environment;
 	}
 
@@ -91,7 +91,7 @@ public class Game {
 		return graphic;
 	}
 
-	public IEnvironment getEnvironment(){
+	public Environment getEnvironment(){
 		return this.environment;
 	}
 
@@ -152,7 +152,7 @@ public class Game {
 		}
 		if(this.testLose()) { //Not doing if/else is intentional
 			this.graphic.endGameScreen("Game over! Your score: "+this.getFrogCase().ord);
-			ImageG imgTest = new ImageG("c2l1.png");
+			//ImageG imgTest = new ImageG("c2l1.png");
 			
 			
 			this.isGameOn = false;

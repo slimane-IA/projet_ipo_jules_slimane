@@ -1,10 +1,10 @@
 package environment;
 
 import java.util.ArrayList;
-import java.awt.Color;
+//import java.awt.Color;
 
 import util.Case;
-import util.Direction;
+//import util.Direction;
 import util.ImageG;
 import gameCommons.Game;
 

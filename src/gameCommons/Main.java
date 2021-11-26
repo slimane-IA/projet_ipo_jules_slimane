@@ -32,7 +32,7 @@ public class Main {
 		game.setFrog(frog);
 		graphic.setFrog(frog);
 		//Creation and linking of the environment
-		IEnvironment env = new Environment(game);
+		Environment env = new Environment(game);
 		game.setEnvironment(env);
 		
 		//Main loop: update the environment every tempo milliseconds

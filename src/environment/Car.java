@@ -2,18 +2,18 @@ package environment;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import javax.swing.*;
+//import javax.swing.*;
 
-import javax.swing.DefaultBoundedRangeModel;
+//import javax.swing.DefaultBoundedRangeModel;
 
-import java.awt.image.BufferedImage;
+//import java.awt.image.BufferedImage;
 import util.Case;
-import util.Direction;
+//import util.Direction;
 import util.ImageG;
 import gameCommons.Game;
 import graphicalElements.Element;
-import java.awt.Image;
-import util.ImageG;
+//import java.awt.Image;
+//import util.ImageG;
 
 
 public class Car {
