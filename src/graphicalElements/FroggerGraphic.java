@@ -3,6 +3,7 @@ package graphicalElements;
 //import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import environment.Lane;
 import gameCommons.Game;
 import gameCommons.IFrog;
 import util.Direction;
@@ -16,7 +17,6 @@ import java.awt.event.KeyListener;
 //import java.io.File;
 //import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class FroggerGraphic extends JPanel implements KeyListener {
 	private ArrayList<Element> elementsToDisplay;
@@ -80,38 +80,56 @@ public class FroggerGraphic extends JPanel implements KeyListener {
 	}
 
 	// getters:
-	public int getPixelByCase(){
+	public int getPixelByCase() {
 		return this.pixelByCase;
 	}
 
 
 	// setters:
-	public void setGame(Game game){
+	public void setGame(Game game) {
 		this.game = game;
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		HashMap<Integer,Boolean> isRondin = this.game.getEnvironment().getIsRondin();
-		int size = 27;
-		if(isRondin.size()<27 ) size = isRondin.size();
-		for (int i=0; i<size;i++){
-			System.out.println(i+": "+ isRondin.get(i));
-			if(!isRondin.get(i)){
-				ImageG rondinImg= new ImageG("water.jpg");
-				g.drawImage(rondinImg.image, 0,(i+this.game.getFrog().getPosition().ord)*pixelByCase,width*pixelByCase ,pixelByCase, null );//to check
-			}else{
-				ImageG laneImg= new ImageG("road.jpg");
-				g.drawImage(laneImg.image, 0,(i+this.game.getFrog().getPosition().ord)*pixelByCase,width*pixelByCase ,pixelByCase, null );//to check
-			}
+		
+		if(this.game.getEnvironment() == null) {return;} //On first iteration
+
+		ImageG roadImage = new ImageG("road.jpg");
+		ImageG riverImage = new ImageG("water.jpg");
+		ImageG emptyImage = new ImageG("");
+		
+		ArrayList<Integer> laneTypes = new ArrayList<Integer>();
+		for(Lane l : this.game.getEnvironment().getLanes()) {
+			laneTypes.add(l.getLaneType());
 		}
-		// for the cars: 
+		
+		//Draw the lanes background
+		int size = 27;
+		if (laneTypes.size() < 27) {size = laneTypes.size();}
+
+		for (int i=(this.game.getFrog().getPosition().ord-this.game.getEnvironment().getLowestLine()); i<size; i++) {
+			int j = size-i;
+
+			System.out.println(i+": "+ laneTypes.get(i));
+
+			ImageG backImg;
+			switch(laneTypes.get(i)) {
+				case 1: backImg = roadImage; break;
+				case 2: backImg = riverImage; break;
+				default: backImg = emptyImage; break;
+			}
+
+			g.drawImage(backImg.image, 0, (j+this.game.getFrog().getPosition().ord)*pixelByCase, width*pixelByCase, pixelByCase, null );//to check
+		}
+
+		//Draw the cars
 		for (Element e : elementsToDisplay) {
-			if (e.image!=null){
-				for (int i=0; i<e.image.size();i++){
+			if (e.image!=null) {
+				for (int i=0; i<e.image.size();i++) {
 					g.drawImage(e.image.get(i).image, (pixelByCase * (e.absc+i)), pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), pixelByCase, pixelByCase, null );//to check
 				}
-			}else{
+			} else {
 				g.setColor(e.color);
 				g.fillRect(pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), pixelByCase, pixelByCase - 1);
 			}
@@ -184,22 +202,22 @@ public class FroggerGraphic extends JPanel implements KeyListener {
 
 	// timer methods
 	// setText
-	public void setTimerText(String text){
+	public void setTimerText(String text) {
 		this.timer.setText(text);
 	}
 	// display
-	public void displayTimer(){
+	public void displayTimer() {
 		this.add(this.timer);
 	}
 	// hide
-	public void hideTimer(){
+	public void hideTimer() {
 		this.remove(this.timer);
 	}
 
-	public JLabel getTimer(){
+	public JLabel getTimer() {
 		return this.timer;
 	}
-	public void setTimer(JLabel timer){
+	public void setTimer(JLabel timer) {
 		this.timer=timer;
 	}
 
