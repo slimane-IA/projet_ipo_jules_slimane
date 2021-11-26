@@ -26,6 +26,7 @@ public class Main {
 		IFroggerGraphics graphic = new FroggerGraphic(width, height);
 		//Creation of the game
 		Game game = new Game(graphic, width, height, minSpeedInTimerLoops, defaultDensity);
+		graphic.setGame(game);
 		//Creation and linking of the frog
 		IFrog frog = new Frog(game);
 		game.setFrog(frog);

@@ -2,6 +2,7 @@ package environment;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import util.Case;
 import gameCommons.Game;
@@ -10,6 +11,7 @@ import gameCommons.IEnvironment;
 public class Environment implements IEnvironment {
 	protected Game game;
 	protected ArrayList<Lane> lines = new ArrayList<Lane>();
+	protected HashMap<Integer,Boolean> isRondin = new HashMap<Integer,Boolean>();
 	protected int lowestLine = 0; //Lowest line handled
 	protected int highestLine = 0; //Highest line handled
 	protected int timerForRiver=0;
@@ -19,6 +21,12 @@ public class Environment implements IEnvironment {
 		
 		this.update();
     }
+
+
+	// getters:
+	public HashMap<Integer,Boolean> getIsRondin(){
+		return this.isRondin;
+	}
 	
 	/**
 	 * Checks if Case is safe, meaning the Frog can go there without dying
@@ -67,6 +75,7 @@ public class Environment implements IEnvironment {
 		while(this.highestLine < curHeight+this.game.height+5) {
 			if(this.timerForRiver>0){
 				this.lines.add(new Lane(this.game, this.highestLine, this.game.defaultDensity,true));
+				this.isRondin.put(this.highestLine,true);
 				if(this.timerForRiver%2==0)
 					this.lines.get(this.lines.size()-1).setLeftToRight(true);
 				else	
@@ -74,6 +83,7 @@ public class Environment implements IEnvironment {
 				this.timerForRiver--;
 			}else{
 				this.lines.add(new Lane(this.game, this.highestLine, 0.1,false));
+				this.isRondin.put(this.highestLine,false);
 				this.timerForRiver--;		
 			}
 			//20% chance to get a river || >5 because we dont want to start with rivers directly
@@ -87,6 +97,10 @@ public class Environment implements IEnvironment {
 
 		for (Lane lane : this.lines)
 			lane.update();
+	}
+
+	public ArrayList<Lane> getLines(){
+		return this.lines;
 	}
 
 }

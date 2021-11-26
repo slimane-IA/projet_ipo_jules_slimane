@@ -4,6 +4,7 @@ package gameCommons;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 import java.awt.Graphics.*;
 
@@ -18,6 +19,8 @@ import java.util.concurrent.TimeUnit;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import environment.Environment;
 
 
 
@@ -88,6 +91,10 @@ public class Game {
 		return graphic;
 	}
 
+	public IEnvironment getEnvironment(){
+		return this.environment;
+	}
+
 	/**
 	 * @return whether the game is over
 	 */
@@ -139,8 +146,8 @@ public class Game {
 		if(this.isGameOn) {
 			this.graphic.clear();
 			this.environment.update();
-			this.graphic.add(new Element(frog.getPosition(), Color.GREEN));
-			//today
+			this.graphic.add(new Element(frog.getPosition().absc,frog.getPosition().ord, Color.BLACK, frog.getImage()));
+			this.graphic.addLane(new Element(this.environment.getLines().get(0).getOrd() ,0, Color.BLACK, this.environment.getLines().get(0).getImage(),this.environment.getLines().get(0).isRondin()));
 			this.ticSeconds++;
 		}
 		if(this.testLose()) { //Not doing if/else is intentional

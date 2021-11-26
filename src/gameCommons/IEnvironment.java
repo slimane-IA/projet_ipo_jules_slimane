@@ -1,8 +1,15 @@
 package gameCommons;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import environment.Lane;
 import util.Case;
 
 public interface IEnvironment {
+
+	// getters
+	public HashMap<Integer,Boolean> getIsRondin();
 
 	/**
 	 * Checks if Case is safe, meaning the Frog can go there without dying
@@ -29,5 +36,7 @@ public interface IEnvironment {
 	 * Updates the environment once
 	 */
 	public void update();
+
+	public ArrayList<Lane> getLines();
 
 }

@@ -5,6 +5,7 @@ import java.awt.Color;
 
 import util.Case;
 import util.Direction;
+import util.ImageG;
 import gameCommons.Game;
 
 public class Lane {
@@ -17,6 +18,7 @@ public class Lane {
 	protected int waitToMove;
 	//protected final Color color;
 	protected boolean isRondin;
+	protected ImageG image ;
 
 	public Lane(Game game, int ord, double density, boolean isRondin){
 		this.game = game;
@@ -26,13 +28,12 @@ public class Lane {
 		this.density = density;
 		this.waitToMove=this.speed;
 		this.isRondin = isRondin;
-		// if(isRondin){
-		// 	this.color=Color.CYAN;
-		// }else{
-		// 	this.color=Color.white;
-		// }
-		
-
+		//setimage:
+		if(this.isRondin){
+			this.image=new ImageG("water.jpg");
+		}else{
+			this.image= new ImageG("road.jpg");
+		}
 	}
 
 	// setters
@@ -147,4 +148,18 @@ public class Lane {
 			return new Case(game.width, ord);
 	}
 
+	public int getOrd(){
+		return this.ord;
+	}
+
+	public ArrayList<ImageG> getImage() {
+		ArrayList<ImageG> res = new ArrayList<ImageG>();
+		res.add(image);
+		return res;
+   }
+
+
+   public boolean isRondin(){
+	   return this.isRondin;
+   }
 }

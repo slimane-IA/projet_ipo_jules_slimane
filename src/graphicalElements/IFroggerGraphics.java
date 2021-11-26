@@ -1,5 +1,6 @@
 package graphicalElements;
 
+import gameCommons.Game;
 import gameCommons.IFrog;
 
 import javax.swing.*;
@@ -11,6 +12,9 @@ public interface IFroggerGraphics {
 	 * @param e
 	 */
     public void add(Element e);
+    public void addLane(Element e);
+
+    //public void paintImage(Graphics g,String imageName,int x, int y,int width ,int height);
     
     /**
      * Enleve tous les elements actuellement affiches
@@ -53,6 +57,8 @@ public interface IFroggerGraphics {
     // geters, setters
     public JLabel getTimer();
 	public void setTimer(JLabel timer);
+
+    public void setGame(Game game);
 
 
   
