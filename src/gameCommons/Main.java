@@ -9,7 +9,6 @@ import frog.Frog;
 //import givenEnvironment.GivenEnvironment;
 import environment.Environment;
 import graphicalElements.FroggerGraphic;
-import graphicalElements.IFroggerGraphics;
 
 public class Main {
 
@@ -23,7 +22,7 @@ public class Main {
 		double defaultDensity = 0.3;
 		
 		//Creation of the graphical interface
-		IFroggerGraphics graphic = new FroggerGraphic(width, height);
+		FroggerGraphic graphic = new FroggerGraphic(width, height);
 		//Creation of the game
 		Game game = new Game(graphic, width, height, minSpeedInTimerLoops, defaultDensity);
 		graphic.setGame(game);

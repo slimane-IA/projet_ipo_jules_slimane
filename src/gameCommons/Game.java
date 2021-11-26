@@ -13,7 +13,7 @@ import util.Case;
 //import frog.Frog;
 
 import graphicalElements.Element;
-import graphicalElements.IFroggerGraphics;
+import graphicalElements.FroggerGraphic;
 //import java.util.concurrent.TimeUnit;
 
 //import javax.imageio.ImageIO;
@@ -41,7 +41,7 @@ public class Game {
 	//Linking used objects
 	private Environment environment;
 	private IFrog frog;
-	private IFroggerGraphics graphic;
+	private FroggerGraphic graphic;
 
 	/**
 	 * 
@@ -51,7 +51,7 @@ public class Game {
 	 * @param minSpeedInTimerLoop Minimum speed, in number of timer loops before move
 	 * @param defaultDensity of cars for lanes
 	 */
-	public Game(IFroggerGraphics graphic, int width, int height, int minSpeedInTimerLoop, double defaultDensity) {
+	public Game(FroggerGraphic graphic, int width, int height, int minSpeedInTimerLoop, double defaultDensity) {
 		super();
 		this.graphic = graphic;
 		this.width = width;
@@ -87,7 +87,7 @@ public class Game {
 	/**
 	 * @return the graphical interface
 	 */
-	public IFroggerGraphics getGraphic() {
+	public FroggerGraphic getGraphic() {
 		return graphic;
 	}
 

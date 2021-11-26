@@ -18,7 +18,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListener {
+public class FroggerGraphic extends JPanel implements KeyListener {
 	private ArrayList<Element> elementsToDisplay;
 	private ArrayList<Element> elementsLaneToDisplay;
 	private int pixelByCase = 16;
