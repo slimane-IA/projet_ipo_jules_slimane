@@ -1,7 +1,10 @@
 package gameCommons;
 
+import java.util.ArrayList;
+
 import util.Case;
 import util.Direction;
+import util.ImageG;
 
 public interface IFrog {
 	
@@ -16,11 +19,15 @@ public interface IFrog {
 	 * @return Direction
 	 */
 	public Direction getDirection();
+	
 
 	/**
 	 * Puts isGameOn back to true in the game
 	 */
 	public void pressedEnter();
+
+	public ArrayList<ImageG> getImage();
+	public void setImage(); 
 	
 	/**
 	 * Moves the Frog in the given direction and checks for game ending

@@ -1,6 +1,7 @@
 package frog;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import gameCommons.Game;
 import gameCommons.IFrog;
@@ -13,6 +14,7 @@ public class Frog implements IFrog {
 	protected Game game;
 	protected Case caseFrog;
 	protected Direction direction;
+	protected ImageG image ;
 
 
 
@@ -20,7 +22,20 @@ public class Frog implements IFrog {
 		this.game = game;
 		this.caseFrog = new Case(Math.round(this.game.width/2), 0);
 		this.direction = null;
+		this.image = new ImageG("frog.png");
+		setImage();
 	}
+
+	// setters: 
+	public void setImage() {
+		this.image= new ImageG("frog.png");
+   }
+   // getters: 
+	public ArrayList<ImageG> getImage() {
+		ArrayList<ImageG> res = new ArrayList<ImageG>();
+		res.add(image);
+		return res;
+   }
 
 	/**
 	 * Gives the current position of the Frog

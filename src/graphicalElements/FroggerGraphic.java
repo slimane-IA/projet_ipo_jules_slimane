@@ -3,6 +3,7 @@ package graphicalElements;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import gameCommons.Game;
 import gameCommons.IFrog;
 import util.Direction;
 import util.ImageG;
@@ -15,15 +16,18 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListener {
 	private ArrayList<Element> elementsToDisplay;
+	private ArrayList<Element> elementsLaneToDisplay;
 	private int pixelByCase = 16;
 	private int width;
 	private int height;
 	private IFrog frog;
 	private JFrame frame;
 	private JLabel timer;
+	protected Game game;
 
 	// testing
 	private BufferedImage img;
@@ -36,6 +40,8 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		this.width = width;
 		this.height = height;
 		elementsToDisplay = new ArrayList<Element>();
+		elementsLaneToDisplay = new ArrayList<Element>();
+		this.game = null;
 
 		setBackground(Color.GRAY);
 		setPreferredSize(new Dimension(this.width * pixelByCase, this.height * pixelByCase));
@@ -77,15 +83,43 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 	public int getPixelByCase(){
 		return this.pixelByCase;
 	}
+
+
+	// setters:
+	public void setGame(Game game){
+		this.game = game;
+	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		HashMap<Integer,Boolean> isRondin = this.game.getEnvironment().getIsRondin();
+		// int size = 27;
+		// if(isRondin.size()<27 ) size = isRondin.size();
+		//for (int i=0; i<isRondin.size();i++){
+			//System.out.println(i+": "+ isRondin.get(i));
+		// for ( int i=0 ; i<25;i++){
+		// 	if(!isRondin.get(i)){
+		// 		ImageG rondinImg= new ImageG("water.jpg");
+		// 		g.drawImage(rondinImg.image, 0,(i)*pixelByCase,width*pixelByCase ,pixelByCase, null );//to check
+		// 	}else{
+		// 		ImageG laneImg= new ImageG("road.jpg");
+		// 		g.drawImage(laneImg.image, 0,(i)*pixelByCase,width*pixelByCase ,pixelByCase, null );//to check
+		// 	}
+		// }
+		// for the cars: 
 		for (Element e : elementsToDisplay) {
+			if(!e.frog){
+				if(e.isRondin ){
+					ImageG rondinImg= new ImageG("water.jpg");
+					g.drawImage(rondinImg.image, 0,(e.ord+this.game.getFrog().getPosition().ord)*pixelByCase,width*pixelByCase ,pixelByCase, null );//to check
+				}else{
+					ImageG laneImg= new ImageG("road.jpg");
+					g.drawImage(laneImg.image, 0,(e.ord+this.game.getFrog().getPosition().ord)*pixelByCase,width*pixelByCase ,pixelByCase, null );//to check
+				}
+			}
 			if (e.image!=null){
-				//System.out.println(img);
-				//g.drawImage(e.image.get(0).image, (pixelByCase * (e.absc)), pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), 16, 16, this);//to check
 				for (int i=0; i<e.image.size();i++){
-					g.drawImage(e.image.get(i).image, (pixelByCase * (e.absc+i)), pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), 16, 16, null );//to check
+					g.drawImage(e.image.get(i).image, (pixelByCase * (e.absc+i)), pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), pixelByCase, pixelByCase, null );//to check
 				}
 			}else{
 				g.setColor(e.color);
@@ -122,6 +156,10 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 
 	public void add(Element e) {
 		this.elementsToDisplay.add(e);
+	}
+
+	public void addLane(Element e) {
+		this.elementsLaneToDisplay.add(e);
 	}
 
 	public void setFrog(IFrog frog) {

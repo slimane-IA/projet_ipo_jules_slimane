@@ -23,10 +23,11 @@ public class Car {
 	protected int length;
 	protected Color color = Color.pink;//new Color(186, 140, 99); // by defautl to rondin color
 	protected boolean isRondin;
+	protected boolean hasBackGround;
 	protected boolean frogOnIt=false;
 
 
-	public ArrayList<ImageG> image ;
+	protected ArrayList<ImageG> image ;
 
 
 
@@ -36,11 +37,20 @@ public class Car {
 		this.leftToRight = leftToRight;
 		this.length= this.game.randomGen.nextInt(3);
 		this.isRondin=isRondin;
+		this.hasBackGround=false;
 		this.image = new ArrayList<ImageG>();
 		setImage();
 	}
 
+
+
 	//getters:
+	public boolean hasBackGround(){
+		return this.hasBackGround;
+	}
+	public boolean isRondin(){
+		return this.isRondin;
+	}
 	public  Case getLeftPosition(){
 		return this.leftPosition;
 	}
@@ -118,9 +128,9 @@ public class Car {
 	/* Fourni : addToGraphics() permettant d'ajouter un element graphique correspondant a la voiture*/
 	private void addToGraphics() {
 		for (int i = 0; i < length; i++) {
-			game.getGraphic().add(new Element(leftPosition.absc + i, leftPosition.ord, this.color,this.image));
+			game.getGraphic().add(new Element(leftPosition.absc + i, leftPosition.ord, this.color,this.image,this.isRondin));
 		}
-		game.getGraphic().add(new Element(leftPosition.absc + length, leftPosition.ord, Color.GRAY));
+		//game.getGraphic().add(new Element(leftPosition.absc + length, leftPosition.ord, Color.GRAY));
 	}
 
 
