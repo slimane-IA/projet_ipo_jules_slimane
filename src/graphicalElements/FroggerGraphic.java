@@ -96,7 +96,6 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 		int size = 27;
 		if(isRondin.size()<27 ) size = isRondin.size();
 		for (int i=0; i<size;i++){
-			System.out.println(i+": "+ isRondin.get(i));
 			if(!isRondin.get(i)){
 				ImageG rondinImg= new ImageG("water.jpg");
 				g.drawImage(rondinImg.image, 0,(i+this.game.getFrog().getPosition().ord)*pixelByCase,width*pixelByCase ,pixelByCase, null );//to check
