@@ -16,28 +16,27 @@ public class Lane {
 	protected boolean leftToRight;
 	protected double density;
 	protected int waitToMove;
-	//protected final Color color;
-	protected boolean isRondin;
+	protected int laneType; //Status: 0 for empty, 1 for road lane, 2 for river
 	protected ImageG image ;
 
-	public Lane(Game game, int ord, double density, boolean isRondin){
+	public Lane(Game game, int ord, double density, int status) {
 		this.game = game;
 		this.ord = ord;
 		this.speed = this.game.randomGen.nextInt(this.game.minSpeedInTimerLoops)+1;
 		this.leftToRight= this.game.randomGen.nextBoolean();
 		this.density = density;
 		this.waitToMove=this.speed;
-		this.isRondin = isRondin;
+		this.laneType = status;
 		//setimage:
-		if(this.isRondin){
-			this.image=new ImageG("water.jpg");
-		}else{
-			this.image= new ImageG("road.jpg");
+		if (this.laneType == 1) {
+			this.image=new ImageG("road.jpg");
+		} else if (this.laneType == 2) {
+			this.image= new ImageG("water.jpg");
 		}
 	}
 
 	// setters
-	public void setLeftToRight(boolean leftToRight){
+	public void setLeftToRight(boolean leftToRight) {
 		this.leftToRight=leftToRight;
 	}
 
@@ -57,7 +56,7 @@ public class Lane {
 		this.waitToMove--;
 		this.pauseAllCars();
 
-		if (this.waitToMove<0){
+		if (this.waitToMove<0) {
 			this.startMovingAllCars();
 			this.mayAddCar();
 			this.waitToMove=this.speed;
@@ -65,11 +64,11 @@ public class Lane {
 		
 	}
 
-	public void startMovingAllCars(){
-		for (Car car : this.cars){
+	public void startMovingAllCars() {
+		for (Car car : this.cars) {
 			car.move();
 			//move the frog is rondin and car on it
-			if (car.getFrogOnIt() ){
+			if (car.getFrogOnIt() ) {
 				if ( (this.game.getFrog().getPosition().absc-1>=0) && (this.game.getFrog().getPosition().absc+1<this.game.width) )
 					this.game.getFrog().setPosition(car.getLeftPosition());
 			}
@@ -79,16 +78,16 @@ public class Lane {
 	}
 
 	// pause according to speed
-	public void pauseAllCars(){
+	public void pauseAllCars() {
 		for (Car car : this.cars)
 			car.pauseCar();
 		// update the table
 	}
 
 	// update the table so that the cars already used won't be in the list
-	public void cleanCarTable(){
-		for (int i=0 ; i<this.cars.size(); i++){
-			if (this.cars.get(i).getLeftToRight()){
+	public void cleanCarTable() {
+		for (int i=0 ; i<this.cars.size(); i++) {
+			if (this.cars.get(i).getLeftToRight()) {
 				if (this.cars.get(i).getLeftPosition().absc>=this.game.width)
 					this.cars.remove(this.cars.get(i));
 			}else{
@@ -99,21 +98,24 @@ public class Lane {
 	}
 
 
-	// is safe : regarder si un case est safe en parcourant toute les voiture dans la lignes 
-	public boolean isSafe( Case anyCase){
-		if(!this.isRondin){
-			for (Car car : this.cars){
+	/**
+	 * @param anyCase
+	 * @return whether given Case is safe for a Frog
+	 */
+	public boolean isSafe(Case anyCase) {
+		if (this.laneType == 1) { //If lane is a road lane
+			for (Car car : this.cars) {
 				if (car.occupyCase(anyCase))
 					return false;
 			}
 			return true;
-		}else{
-			for (Car car : this.cars){
+		} else if(this.laneType == 2) { //If lane is a river
+			for (Car car : this.cars) {
 				if (car.occupyCase(anyCase))
 					return true;
 			}
 			return false;
-		}
+		} else {return true;} //If lane is empty
 	}
 
 
@@ -127,9 +129,9 @@ public class Lane {
 	 * densite, si la premiere case de la voie est vide
 	 */
 	private void mayAddCar() {
-		if((!isRondin && isSafe(getFirstCase()) && isSafe(getBeforeFirstCase()))||(isRondin && !isSafe(getFirstCase()) && !isSafe(getBeforeFirstCase()))) {
+		if(((this.laneType == 1) && isSafe(getFirstCase()) && isSafe(getBeforeFirstCase()))||((this.laneType == 2) && !isSafe(getFirstCase()) && !isSafe(getBeforeFirstCase()))) {
 			if (game.randomGen.nextDouble() < density) {
-				cars.add(new Car(game, getBeforeFirstCase(), this.leftToRight,this.isRondin));
+				cars.add(new Car(game, getBeforeFirstCase(), this.leftToRight, this.laneType));
 			}
 		}
 	}
@@ -148,18 +150,20 @@ public class Lane {
 			return new Case(game.width, ord);
 	}
 
-	public int getOrd(){
+	public int getOrd() {
 		return this.ord;
 	}
-
+	
 	public ArrayList<ImageG> getImage() {
 		ArrayList<ImageG> res = new ArrayList<ImageG>();
 		res.add(image);
 		return res;
-   }
+	}
 
-
-   public boolean isRondin(){
-	   return this.isRondin;
-   }
+   	/**
+	* @return status of the Lane
+    */
+	public int getLaneType() {
+		return this.laneType;
+	} 
 }

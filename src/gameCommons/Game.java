@@ -141,13 +141,12 @@ public class Game {
 			this.timer++;
 			this.ticSeconds=0;
 		}
-		;
 
 		if(this.isGameOn) {
 			this.graphic.clear();
 			this.environment.update();
 			this.graphic.add(new Element(frog.getPosition().absc,frog.getPosition().ord, Color.BLACK, frog.getImage()));
-			this.graphic.addLane(new Element(this.environment.getLines().get(0).getOrd() ,0, Color.BLACK, this.environment.getLines().get(0).getImage(),this.environment.getLines().get(0).isRondin()));
+			this.graphic.addLane(new Element(this.environment.getLines().get(0).getOrd() ,0, Color.BLACK, this.environment.getLines().get(0).getImage(), this.environment.getLines().get(0).getLaneType()));
 			this.ticSeconds++;
 		}
 		if(this.testLose()) { //Not doing if/else is intentional

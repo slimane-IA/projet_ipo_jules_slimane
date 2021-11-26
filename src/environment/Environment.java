@@ -72,7 +72,7 @@ public class Environment {
 		//If highestLine is not far enough above, add lines
 		while(this.highestLine < curHeight+this.game.height+5) {
 			if(this.timerForRiver>0){
-				this.lines.add(new Lane(this.game, this.highestLine, this.game.defaultDensity,true));
+				this.lines.add(new Lane(this.game, this.highestLine, this.game.defaultDensity, 2));
 				this.isRondin.put(this.highestLine,true);
 				if(this.timerForRiver%2==0)
 					this.lines.get(this.lines.size()-1).setLeftToRight(true);
@@ -80,7 +80,7 @@ public class Environment {
 				this.lines.get(this.lines.size()-1).setLeftToRight(false);
 				this.timerForRiver--;
 			}else{
-				this.lines.add(new Lane(this.game, this.highestLine, 0.1,false));
+				this.lines.add(new Lane(this.game, this.highestLine, 0.1, 1));
 				this.isRondin.put(this.highestLine,false);
 				this.timerForRiver--;		
 			}

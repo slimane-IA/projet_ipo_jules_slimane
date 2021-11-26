@@ -21,8 +21,8 @@ public class Car {
 	protected Case leftPosition;
 	protected boolean leftToRight;
 	protected int length;
-	protected Color color = Color.pink;//new Color(186, 140, 99); // by defautl to rondin color
-	protected boolean isRondin;
+	protected Color color = Color.pink;//new Color(186, 140, 99); // by default to rondin color
+	protected int carType; //1 for regular car, 2 for rondin
 	protected boolean hasBackGround;
 	protected boolean frogOnIt=false;
 
@@ -31,12 +31,12 @@ public class Car {
 
 
 
-	public Car (Game game, Case leftPosition, boolean leftToRight, boolean isRondin){
+	public Car (Game game, Case leftPosition, boolean leftToRight, int carType) {
 		this.game = game;
 		this.leftPosition = leftPosition;
 		this.leftToRight = leftToRight;
 		this.length= this.game.randomGen.nextInt(3);
-		this.isRondin=isRondin;
+		this.carType=carType;
 		this.hasBackGround=false;
 		this.image = new ArrayList<ImageG>();
 		setImage();
@@ -44,42 +44,34 @@ public class Car {
 
 
 
-	//getters:
-	public boolean hasBackGround(){
+	//Getters
+	
+	public boolean hasBackGround() {
 		return this.hasBackGround;
 	}
-	public boolean isRondin(){
-		return this.isRondin;
-	}
-	public  Case getLeftPosition(){
-		return this.leftPosition;
-	}
+	public int carType() {return this.carType;}
 
-	public  boolean getLeftToRight(){
-		return this.leftToRight;
-	}
+	public Case getLeftPosition() {return this.leftPosition;}
 
-	public  int getLength(){
-		return this.length;
-	}
+	public boolean getLeftToRight() {return this.leftToRight;}
 
-	public  boolean getFrogOnIt(){
-		return this.frogOnIt;
-	}
+	public int getLength() {return this.length;}
+
+	public boolean getFrogOnIt() {return this.frogOnIt;}
 
 	// setters: 
 	public void setImage() {
-		 if(!this.isRondin){
-			for ( int i=0; i<this.length;i++){
-				if (leftToRight){
+		 if (this.carType == 1) {
+			for ( int i=0; i<this.length;i++) {
+				if (leftToRight) {
 					this.image.add(new ImageG("c"+this.length+"l"+i+".png"));
 					
-				}else{
+				} else {
 					this.image.add(new ImageG("c"+this.length+"r"+i+".png"));
 				}
 			}
-		}else{
-			for ( int i=0; i<this.length;i++){
+		} else { //Considering there's only two car types, no need to check if it's == 2
+			for ( int i=0; i<this.length;i++) {
 				this.image.add(new ImageG("rondin.png"));			
 			}
 		}
@@ -88,18 +80,18 @@ public class Car {
 
 	
 	// move qui comme move pour frog mais acev directtion left or right 
-	public void move(){
+	public void move() {
 
 		//check if car on it:
-		if(this.isRondin && this.occupyCase(this.game.getFrogCase()) ){
+		if ((this.carType == 1) && this.occupyCase(this.game.getFrogCase()) ) {
 			this.frogOnIt=true;
-		}else{
+		} else {
 			this.frogOnIt=false;
 		}
 		
-		if(leftToRight){
+		if (leftToRight) {
 			this.leftPosition = new Case(this.leftPosition.absc+1,this.leftPosition.ord);
-		}else{
+		} else {
 			this.leftPosition = new Case(this.leftPosition.absc-1,this.leftPosition.ord);
 		}
 		
@@ -110,14 +102,14 @@ public class Car {
 	}
 
 	// pause car
-	public void pauseCar(){
+	public void pauseCar() {
 		this.addToGraphics();
 	}
 
 	// prend une case en paramettre renvois 
 	// true si la voiture occupe cette case 
 	// false sinon
-	public boolean occupyCase(Case anyCase){
+	public boolean occupyCase(Case anyCase) {
 		// for a car to occupy a case, it has to be in the same line (.ord) AND it has to occupy either by its first case or the othes case according to it's length 
 		if (anyCase.ord==this.leftPosition.ord && anyCase.absc >= this.leftPosition.absc && anyCase.absc<(this.leftPosition.absc+this.length))
 			return true;
@@ -128,7 +120,7 @@ public class Car {
 	/* Fourni : addToGraphics() permettant d'ajouter un element graphique correspondant a la voiture*/
 	private void addToGraphics() {
 		for (int i = 0; i < length; i++) {
-			game.getGraphic().add(new Element(leftPosition.absc + i, leftPosition.ord, this.color,this.image,this.isRondin));
+			game.getGraphic().add(new Element(leftPosition.absc + i, leftPosition.ord, this.color,this.image, this.carType));
 		}
 		//game.getGraphic().add(new Element(leftPosition.absc + length, leftPosition.ord, Color.GRAY));
 	}
