@@ -15,7 +15,6 @@ public class Element extends Case {
     public ArrayList<ImageG> image;
     public boolean isRondin=false;
     public boolean hasBackGround = false;
-    public boolean frog = false;
 
     public Element(int absc, int ord, Color color) {
         super(absc, ord);
@@ -40,13 +39,11 @@ public class Element extends Case {
         this.image=image;
     }
 
-    public Element(int absc, int ord, Color color,ArrayList<ImageG> image, boolean isRondin, boolean frog) {
+    public Element(int absc, int ord, Color color,ArrayList<ImageG> image, boolean isRondin) {
         super(absc, ord);
         this.color = color;
         this.image=image;
         this.isRondin=isRondin;
-        this.frog=frog;
-
     }
 
  

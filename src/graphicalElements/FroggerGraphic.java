@@ -93,30 +93,20 @@ public class FroggerGraphic extends JPanel implements IFroggerGraphics, KeyListe
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		HashMap<Integer,Boolean> isRondin = this.game.getEnvironment().getIsRondin();
-		// int size = 27;
-		// if(isRondin.size()<27 ) size = isRondin.size();
-		//for (int i=0; i<isRondin.size();i++){
-			//System.out.println(i+": "+ isRondin.get(i));
-		// for ( int i=0 ; i<25;i++){
-		// 	if(!isRondin.get(i)){
-		// 		ImageG rondinImg= new ImageG("water.jpg");
-		// 		g.drawImage(rondinImg.image, 0,(i)*pixelByCase,width*pixelByCase ,pixelByCase, null );//to check
-		// 	}else{
-		// 		ImageG laneImg= new ImageG("road.jpg");
-		// 		g.drawImage(laneImg.image, 0,(i)*pixelByCase,width*pixelByCase ,pixelByCase, null );//to check
-		// 	}
-		// }
+		int size = 27;
+		if(isRondin.size()<27 ) size = isRondin.size();
+		for (int i=0; i<size;i++){
+			System.out.println(i+": "+ isRondin.get(i));
+			if(!isRondin.get(i)){
+				ImageG rondinImg= new ImageG("water.jpg");
+				g.drawImage(rondinImg.image, 0,(i+this.game.getFrog().getPosition().ord)*pixelByCase,width*pixelByCase ,pixelByCase, null );//to check
+			}else{
+				ImageG laneImg= new ImageG("road.jpg");
+				g.drawImage(laneImg.image, 0,(i+this.game.getFrog().getPosition().ord)*pixelByCase,width*pixelByCase ,pixelByCase, null );//to check
+			}
+		}
 		// for the cars: 
 		for (Element e : elementsToDisplay) {
-			if(!e.frog){
-				if(e.isRondin ){
-					ImageG rondinImg= new ImageG("water.jpg");
-					g.drawImage(rondinImg.image, 0,(e.ord+this.game.getFrog().getPosition().ord)*pixelByCase,width*pixelByCase ,pixelByCase, null );//to check
-				}else{
-					ImageG laneImg= new ImageG("road.jpg");
-					g.drawImage(laneImg.image, 0,(e.ord+this.game.getFrog().getPosition().ord)*pixelByCase,width*pixelByCase ,pixelByCase, null );//to check
-				}
-			}
 			if (e.image!=null){
 				for (int i=0; i<e.image.size();i++){
 					g.drawImage(e.image.get(i).image, (pixelByCase * (e.absc+i)), pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), pixelByCase, pixelByCase, null );//to check
