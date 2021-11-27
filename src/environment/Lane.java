@@ -96,19 +96,14 @@ public class Lane {
 	 * @return whether given Case is safe for a Frog
 	 */
 	public boolean isSafe(Case anyCase) {
-		if (this.laneType == 1) { //If lane is a road lane
-			for (Car car : this.cars) {
-				if (car.occupyCase(anyCase))
-					return false;
-			}
-			return true;
-		} else if(this.laneType == 2) { //If lane is a river
-			for (Car car : this.cars) {
-				if (car.occupyCase(anyCase))
-					return true;
-			}
-			return false;
-		} else {return true;} //If lane is empty
+		if(laneType == 0) {return true;}
+
+		for (Car car : this.cars) {
+			if (car.occupyCase(anyCase))
+				return (this.laneType == 2);
+		}
+		return (this.laneType == 1);
+		
 	}
 
 

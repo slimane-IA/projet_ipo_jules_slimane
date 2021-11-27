@@ -132,14 +132,12 @@ public class Game {
 		if(this.isGameOn) {
 			this.graphic.clear();
 			this.environment.update();
-			this.graphic.add(new Element(frog.getPosition().absc,frog.getPosition().ord, Color.BLACK, frog.getImage()));
-			this.graphic.addLane(new Element(this.environment.getLanes().get(0).getOrd() ,0, Color.BLACK, this.environment.getLanes().get(0).getImage(), this.environment.getLanes().get(0).getLaneType()));
+			this.graphic.add(new Element(frog.getPosition().absc, frog.getPosition().ord, Color.BLACK, frog.getImage()));
+			this.graphic.addLane(new Element(this.environment.getLanes().get(0).getOrd(), 0, Color.BLACK, this.environment.getLanes().get(0).getImage(), this.environment.getLanes().get(0).getLaneType()));
 			this.ticSeconds++;
 		}
 		if(this.testLose()) { //Not doing if/else is intentional
 			this.graphic.endGameScreen("Game over! Your score: "+this.getFrogCase().ord);
-			//ImageG imgTest = new ImageG("c2l1.png");
-			
 			
 			this.isGameOn = false;
 

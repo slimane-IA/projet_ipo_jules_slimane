@@ -9,11 +9,13 @@ import gameCommons.Game;
 public class Environment {
 	protected Game game;
 	protected ArrayList<Lane> lanes = new ArrayList<Lane>();
-	protected int lowestLine = 0; //Lowest line handled
-	protected int highestLine = 0; //Highest line handled
-	//protected int timerForRiver = 0;
+
+	protected final int linesBelow = 5;
+	protected int lowestLine = -linesBelow; //Lowest line handled
+	protected int highestLine = lowestLine; //Highest line handled
+
 	protected int curBlocType = 0; //Specifies the type of the current bloc
-	protected int curBlocRem = 5; //Specifies the amount of lanes remaining to be created for the current bloc
+	protected int curBlocRem = 15+linesBelow; //Specifies the amount of lanes remaining to be created for the current bloc
 	protected boolean curLaneLTR = false; //Specifies whether the current lane is ltr or rtl (reset with each new bloc)
 
     public Environment(Game game) {
@@ -25,7 +27,7 @@ public class Environment {
 	/**
 	 * Checks if Case is safe, meaning the Frog can go there without dying
 	 * 
-	 * @param c the check Case
+	 * @param anyCase
 	 * @return whether there's no danger
 	 */
 	public boolean isSafe(Case anyCase) {
@@ -35,7 +37,7 @@ public class Environment {
 	/**
 	 * Checks if a Case is a finishing one
 	 * 
-	 * @param c
+	 * @param anyCase
 	 * @return whether the Case is a winning one
 	 */
 	public boolean isWinningPosition(Case anyCase) {
@@ -59,10 +61,10 @@ public class Environment {
 		//Set lowestLine & highestLine
 		int curHeight = this.game.getFrogCase().ord;
 
-		System.out.println(curHeight+", "+this.lowestLine+", "+this.highestLine+", "+this.lanes.size());
+		//System.out.println(curHeight+", "+this.lowestLine+", "+this.highestLine+", "+this.lanes.size());
 
 		//If lowestLine is too far below, remove lines
-		while(this.lowestLine < curHeight-5) {
+		while(this.lowestLine < curHeight-this.linesBelow) {
 			this.lanes.remove(0);
 			this.lowestLine++;
 		}
@@ -114,6 +116,10 @@ public class Environment {
 
 	public int getLowestLine() {
 		return this.lowestLine;
+	}
+
+	public int getLinesBelow() {
+		return this.linesBelow;
 	}
 
 }

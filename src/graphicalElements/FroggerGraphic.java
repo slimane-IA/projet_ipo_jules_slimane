@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.lang.Math;
 
 import environment.Lane;
 import gameCommons.Game;
@@ -57,22 +58,6 @@ public class FroggerGraphic extends JPanel implements KeyListener {
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setVerticalAlignment(SwingConstants.TOP);
 		label.setSize(this.getSize());
-
-		//testing 
-		//File file = new File("/src/images/c2l1.png");
-		//System.out.println("==========="+ file.getAbsolutePath()+ "============");
-		// try {
-		// 	img = ImageIO.read(FroggerGraphic.class.getResource("/images/" + "c2l1.png"));
-			
-		// }
-		// catch(IOException exc) {
-		// 	exc.printStackTrace();
-		// }
-		//imgS = new ImageG("c2l1.png");
-		//img = imgS.image;
-
-		//end testing 
-			
 	}
 
 	// getters:
@@ -102,9 +87,19 @@ public class FroggerGraphic extends JPanel implements KeyListener {
 		
 		//Draw the lanes background
 		int size = laneTypes.size();
+		int linesBelow = this.game.getEnvironment().getLinesBelow();
+		int lowestLine = this.game.getEnvironment().getLowestLine();
 
-		for (int i=0; i<size; i++) {
-			int j = size-i-1;
+		//Get the coordinates right
+		int frogPos = this.game.getFrog().getPosition().ord;
+		int lowLine = Math.min( frogPos-linesBelow, lowestLine );
+
+		System.out.println(frogPos+" "+(frogPos-linesBelow)+" "+lowestLine+" "+lowLine);
+
+		for (int i=linesBelow; i<size; i++) {
+			//int j = size-i-1-linesBelow;
+			int j = height-(i+lowestLine-frogPos+1);
+			//if(i == linesBelow) {System.out.println("- "+(i+lowLine-1));}
 
 			ImageG backImg;
 			switch(laneTypes.get(i)) {
@@ -118,13 +113,15 @@ public class FroggerGraphic extends JPanel implements KeyListener {
 
 		//Draw the cars
 		for (Element e : elementsToDisplay) {
+			//System.out.println(e);
 			if (e.image!=null) {
 				for (int i=0; i<e.image.size();i++) {
-					g.drawImage(e.image.get(i).image, (pixelByCase * (e.absc+i)), pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), pixelByCase, pixelByCase, null );//to check
+					//if(e.elementType == 0) {System.out.println(e.ord+" "+height+" "+size+" "+linesBelow+" "+lowLine+" "+(e.ord + 1));}
+					g.drawImage(e.image.get(i).image, (pixelByCase * (e.absc+i)), pixelByCase * (height - (e.ord - lowLine + 1 - linesBelow)), pixelByCase, pixelByCase, null );
 				}
 			} else {
 				g.setColor(e.color);
-				g.fillRect(pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord + this.frog.getPosition().ord - 2), pixelByCase, pixelByCase - 1);
+				g.fillRect(pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord), pixelByCase, pixelByCase - 1);
 			}
 			
 		}

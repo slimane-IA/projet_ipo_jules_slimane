@@ -14,12 +14,12 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		//Caractéristiques du jeu
+		//Game settings
 		int width = 26;
 		int height = 20;
 		int tempo = 100;
 		int minSpeedInTimerLoops = 1;
-		double defaultDensity = 0.3;
+		double defaultDensity = 0.25;
 		
 		//Creation of the graphical interface
 		FroggerGraphic graphic = new FroggerGraphic(width, height);

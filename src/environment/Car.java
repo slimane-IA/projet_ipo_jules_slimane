@@ -79,7 +79,7 @@ public class Car {
 
 
 	
-	// move qui comme move pour frog mais acev directtion left or right 
+	// move qui comme move pour frog mais avec direction left or right 
 	public void move() {
 
 		//check if car on it:
@@ -89,11 +89,7 @@ public class Car {
 			this.frogOnIt=false;
 		}
 		
-		if (leftToRight) {
-			this.leftPosition = new Case(this.leftPosition.absc+1,this.leftPosition.ord);
-		} else {
-			this.leftPosition = new Case(this.leftPosition.absc-1,this.leftPosition.ord);
-		}
+		this.leftPosition = new Case(this.leftPosition.absc + (leftToRight ? 1 : -1), this.leftPosition.ord);
 		
 		
 
