@@ -19,14 +19,14 @@ public class Lane {
 	protected int laneType; //Status: 0 for empty, 1 for road lane, 2 for river
 	protected ImageG image ;
 
-	public Lane(Game game, int ord, double density, int status) {
+	public Lane(Game game, int ord, double density, int laneType, boolean ltr) {
 		this.game = game;
 		this.ord = ord;
 		this.speed = this.game.randomGen.nextInt(this.game.minSpeedInTimerLoops)+1;
-		this.leftToRight= this.game.randomGen.nextBoolean();
 		this.density = density;
 		this.waitToMove=this.speed;
-		this.laneType = status;
+		this.laneType = laneType;
+		this.leftToRight = ltr;
 		//setimage:
 		if (this.laneType == 1) {
 			this.image=new ImageG("road.jpg");
@@ -34,13 +34,6 @@ public class Lane {
 			this.image= new ImageG("water.jpg");
 		}
 	}
-
-	// setters
-	public void setLeftToRight(boolean leftToRight) {
-		this.leftToRight=leftToRight;
-	}
-
-
 
 	public void update() {
 

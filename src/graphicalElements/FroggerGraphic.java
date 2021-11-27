@@ -105,13 +105,10 @@ public class FroggerGraphic extends JPanel implements KeyListener {
 		}
 		
 		//Draw the lanes background
-		int size = 27;
-		if (laneTypes.size() < 27) {size = laneTypes.size();}
+		int size = laneTypes.size();
 
-		for (int i=(this.game.getFrog().getPosition().ord-this.game.getEnvironment().getLowestLine()); i<size; i++) {
-			int j = size-i;
-
-			System.out.println(i+": "+ laneTypes.get(i));
+		for (int i=0; i<size; i++) {
+			int j = size-i-1;
 
 			ImageG backImg;
 			switch(laneTypes.get(i)) {
@@ -120,7 +117,7 @@ public class FroggerGraphic extends JPanel implements KeyListener {
 				default: backImg = emptyImage; break;
 			}
 
-			g.drawImage(backImg.image, 0, (j+this.game.getFrog().getPosition().ord)*pixelByCase, width*pixelByCase, pixelByCase, null );//to check
+			g.drawImage(backImg.image, 0, j*pixelByCase, width*pixelByCase, pixelByCase, null);
 		}
 
 		//Draw the cars
