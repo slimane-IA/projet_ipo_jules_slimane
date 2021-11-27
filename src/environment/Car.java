@@ -23,6 +23,7 @@ public class Car {
 	protected int length;
 	protected Color color = Color.pink;//new Color(186, 140, 99); // by default to rondin color
 	protected int carType; //1 for regular car, 2 for rondin
+	protected ArrayList<String> props;
 	protected boolean hasBackGround;
 	protected boolean frogOnIt=false;
 
@@ -38,7 +39,8 @@ public class Car {
 		this.carType = carType;
 
 		this.length = (this.carType == 1) ? (this.game.randomGen.nextInt(1, 4)) : (this.game.randomGen.nextInt(3, 7));
-		
+		this.props = new ArrayList<>();
+
 		this.hasBackGround = false;
 		this.image = new ArrayList<ImageG>();
 		setImage();
@@ -61,67 +63,74 @@ public class Car {
 
 	public boolean getFrogOnIt() {return this.frogOnIt;}
 
-	// setters: 
+	public ArrayList<String> getProps() {return this.props;}
+
+	public String getProp(int i) {return this.props.get(i);}
+
+
+
+	//Setters
+
 	public void setImage() {
 		 if (this.carType == 1) {
 			for ( int i=0; i<this.length;i++) {
 				if (leftToRight) {
 					this.image.add(new ImageG("c"+this.length+"l"+i+".png"));
+					this.props.add("c"+this.length+"l"+i);
 					
 				} else {
 					this.image.add(new ImageG("c"+this.length+"r"+i+".png"));
+					this.props.add("c"+this.length+"r"+i);
 				}
 			}
 		} else { //Considering there's only two car types, no need to check if it's == 2
-			for ( int i=0; i<this.length;i++) {
+		for ( int i=0; i<this.length;i++) {
 				this.image.add(new ImageG("rondin.png"));			
+				this.props.add("rondin");
 			}
 		}
 	}
 
 
-	
-	// move qui comme move pour frog mais avec direction left or right 
+
+	/**
+	 * Moves the car
+	 */
 	public void move() {
 
-		//check if car on it:
-		if ((this.carType == 1) && this.occupyCase(this.game.getFrogCase()) ) {
-			this.frogOnIt=true;
-		} else {
-			this.frogOnIt=false;
-		}
+		//Check if car is on it
+		this.frogOnIt = (this.carType == 1) && this.occupyCase(this.game.getFrogCase());
 		
 		this.leftPosition = new Case(this.leftPosition.absc + (leftToRight ? 1 : -1), this.leftPosition.ord);
-		
-		
 
-		// mise-a-jour graphic
+		//Update graphics
 		this.addToGraphics();
 	}
 
-	// pause car
+	/**
+	 * Pause car
+	 */
 	public void pauseCar() {
 		this.addToGraphics();
 	}
 
-	// prend une case en paramettre renvois 
-	// true si la voiture occupe cette case 
-	// false sinon
+	/**
+	 * @param anyCase
+	 * @return whether the car occupies this case
+	 */
 	public boolean occupyCase(Case anyCase) {
 		// for a car to occupy a case, it has to be in the same line (.ord) AND it has to occupy either by its first case or the othes case according to it's length 
 		if (anyCase.ord==this.leftPosition.ord && anyCase.absc >= this.leftPosition.absc && anyCase.absc<(this.leftPosition.absc+this.length))
 			return true;
 		return false;
 	}
-
 	
 	/* Fourni : addToGraphics() permettant d'ajouter un element graphique correspondant a la voiture*/
 	private void addToGraphics() {
 		for (int i = 0; i < length; i++) {
-			game.getGraphic().add(new Element(leftPosition.absc + i, leftPosition.ord, this.color,this.image, this.carType));
+			game.getGraphic().add(new Element(leftPosition.absc + i, leftPosition.ord, this.props));
 		}
 		//game.getGraphic().add(new Element(leftPosition.absc + length, leftPosition.ord, Color.GRAY));
 	}
-
 
 }

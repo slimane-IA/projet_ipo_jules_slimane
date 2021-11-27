@@ -1,6 +1,5 @@
 package gameCommons;
 
-import java.awt.*;
 import java.util.Random;
 
 import util.Case;
@@ -128,8 +127,9 @@ public class Game {
 		if(this.isGameOn) {
 			this.graphic.clear();
 			this.environment.update();
-			this.graphic.add(new Element(frog.getPosition().absc, frog.getPosition().ord, Color.BLACK, frog.getImage()));
-			this.graphic.addLane(new Element(this.environment.getLanes().get(0).getOrd(), 0, Color.BLACK, this.environment.getLanes().get(0).getImage(), this.environment.getLanes().get(0).getLaneType()));
+			this.graphic.add(new Element(frog.getPosition().absc, frog.getPosition().ord, "Frog"));
+
+			//this.graphic.addLane(new Element(this.environment.getLanes().get(0).getOrd(), 0, Color.BLACK, this.environment.getLanes().get(0).getImage(), this.environment.getLanes().get(0).getLaneType()));
 			this.timer += ((float)tempo/100)/8;
 		}
 		if(this.isGameOn && this.testLose()) { //Not doing if/else is intentional

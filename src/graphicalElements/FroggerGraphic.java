@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.lang.Math;
 
 import environment.Lane;
@@ -25,10 +26,8 @@ public class FroggerGraphic extends JPanel implements KeyListener {
 	private JFrame frame;
 	private JLabel timer;
 	protected Game game;
-
-	// testing
-	//private BufferedImage img;
-	//private ImageG imgS;
+	
+	private static HashMap<String, ImageG> elementsImages = new HashMap<>();
 
 
 
@@ -108,15 +107,19 @@ public class FroggerGraphic extends JPanel implements KeyListener {
 
 		//Draw the cars
 		for (Element e : elementsToDisplay) {
-			if (e.image!=null) {
-				for (int i=0; i<e.image.size();i++) {
-					g.drawImage(e.image.get(i).image, (pixelByCase * (e.absc+i)), pixelByCase * (height - (e.ord - lowLine + 1 - linesBelow)), pixelByCase, pixelByCase, null );
+			if(e.props != null) {
+				for (int i=0; i<e.props.size();i++) {
+					String iStr = e.props.get(i);
+				
+					//Add the image to the static list if not already included
+					if( !elementsImages.containsKey(iStr)) {
+						elementsImages.put(iStr, new ImageG(iStr+".png"));
+					}
+
+					ImageG curImage = elementsImages.get(iStr);
+					g.drawImage(curImage.image, (pixelByCase * (e.absc+i)), pixelByCase * (height - (e.ord - lowLine + 1 - linesBelow)), pixelByCase, pixelByCase, null );
 				}
-			} else {
-				g.setColor(e.color);
-				g.fillRect(pixelByCase * e.absc, pixelByCase * (height - 1 - e.ord), pixelByCase, pixelByCase - 1);
 			}
-			
 		}
 	}
 

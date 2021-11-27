@@ -122,7 +122,7 @@ public class Lane {
 			((this.laneType == 1) && isSafe(getFirstCase()) && isSafe(getBeforeFirstCase())) ||
 			((this.laneType == 2) && !isSafe(getFirstCase()) && !isSafe(getBeforeFirstCase()))
 		) {
-			if (game.randomGen.nextDouble() < density) {
+			if(game.randomGen.nextDouble() < density) {
 				cars.add(new Car(game, getBeforeFirstCase(), this.leftToRight, this.laneType));
 			}
 		}
