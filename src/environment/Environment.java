@@ -70,7 +70,7 @@ public class Environment {
 		//If highestLine is not far enough above, add lines
 		while(this.highestLine < curHeight+this.game.height+5) {
 
-			//New bloc
+			//Make new bloc if needed
 			if(this.curBlocRem == 0) {
 
 				if(this.curBlocType == 0) { //If currently on a 0 bloc, create a new lane or road bloc
@@ -91,29 +91,10 @@ public class Environment {
 				}
 			}
 
+			//Add new line
 			this.lanes.add(new Lane(this.game, this.highestLine, this.game.defaultDensity, this.curBlocType, this.curLaneLTR));
 			this.curLaneLTR = !this.curLaneLTR;
 			this.curBlocRem--;
-
-			//New lines
-
-			/* if(this.timerForRiver>0) {
-				this.lanes.add(new Lane(this.game, this.highestLine, this.game.defaultDensity, 2));
-				if(this.timerForRiver%2==0) {
-					this.lanes.get(this.lanes.size()-1).setLeftToRight(true);
-				} else {
-					this.lanes.get(this.lanes.size()-1).setLeftToRight(false);
-					this.timerForRiver--;
-				}
-			} else {
-				this.lanes.add(new Lane(this.game, this.highestLine, 0.1, 1));
-				this.timerForRiver--;		
-			}
-			//20% chance to get a river || >5 because we dont want to start with rivers directly
-			if(this.timerForRiver<-4 && this.lanes.size()>3 && this.game.randomGen.nextBoolean()) {
-					this.timerForRiver=4;
-					//this.game.getGraphic().add(new Element(new Case(0,0), Color.blue));
-			} */
 			
 			this.highestLine++;
 		}
