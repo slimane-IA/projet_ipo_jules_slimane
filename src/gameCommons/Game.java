@@ -21,9 +21,8 @@ public class Game {
 	public final int minSpeedInTimerLoops;
 	public final double defaultDensity;
 	public boolean isGameOn;
-	public int timer;
-	//today
-	private int ticSeconds;
+	public float timer;
+	private int tempo;
 
 	//Linking used objects
 	private Environment environment;
@@ -38,17 +37,16 @@ public class Game {
 	 * @param minSpeedInTimerLoop Minimum speed, in number of timer loops before move
 	 * @param defaultDensity of cars for lanes
 	 */
-	public Game(FroggerGraphic graphic, int width, int height, int minSpeedInTimerLoop, double defaultDensity) {
+	public Game(FroggerGraphic graphic, int width, int height, int minSpeedInTimerLoop, double defaultDensity, int tempo) {
 		super();
 		this.graphic = graphic;
 		this.width = width;
 		this.height = height;
 		this.minSpeedInTimerLoops = minSpeedInTimerLoop;
 		this.defaultDensity = defaultDensity;
+		this.tempo = tempo;
 		this.isGameOn = true;
 		this.timer=0;
-		//today
-		this.ticSeconds=3;
 	}
 
 	/**
@@ -122,11 +120,9 @@ public class Game {
 	public void update() {
 		//today
 		// timer update():
-		if(this.ticSeconds>8 && this.isGameOn){
-			this.graphic.setTimerText("time (seconds):"+this.timer);
+		if(this.isGameOn){
+			this.graphic.setTimerText("time:"+(float)Math.round(this.timer*10)/10+"s");
 			this.graphic.displayTimer();
-			this.timer++;
-			this.ticSeconds=0;
 		}
 
 		if(this.isGameOn) {
@@ -134,9 +130,9 @@ public class Game {
 			this.environment.update();
 			this.graphic.add(new Element(frog.getPosition().absc, frog.getPosition().ord, Color.BLACK, frog.getImage()));
 			this.graphic.addLane(new Element(this.environment.getLanes().get(0).getOrd(), 0, Color.BLACK, this.environment.getLanes().get(0).getImage(), this.environment.getLanes().get(0).getLaneType()));
-			this.ticSeconds++;
+			this.timer += ((float)tempo/100)/8;
 		}
-		if(this.testLose()) { //Not doing if/else is intentional
+		if(this.isGameOn && this.testLose()) { //Not doing if/else is intentional
 			this.graphic.endGameScreen("Game over! Your score: "+this.getFrogCase().ord);
 			
 			this.isGameOn = false;
@@ -144,6 +140,5 @@ public class Game {
 
 		}
 	}
-
 
 }
