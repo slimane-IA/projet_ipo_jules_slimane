@@ -35,9 +35,11 @@ public class Car {
 		this.game = game;
 		this.leftPosition = leftPosition;
 		this.leftToRight = leftToRight;
-		this.length= this.game.randomGen.nextInt(3);
-		this.carType=carType;
-		this.hasBackGround=false;
+		this.carType = carType;
+
+		this.length = (this.carType == 1) ? (this.game.randomGen.nextInt(1, 4)) : (this.game.randomGen.nextInt(3, 7));
+		
+		this.hasBackGround = false;
 		this.image = new ArrayList<ImageG>();
 		setImage();
 	}

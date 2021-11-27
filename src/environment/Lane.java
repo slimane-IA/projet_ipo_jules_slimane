@@ -27,11 +27,12 @@ public class Lane {
 		this.waitToMove=this.speed;
 		this.laneType = laneType;
 		this.leftToRight = ltr;
-		//setimage:
-		if (this.laneType == 1) {
-			this.image=new ImageG("road.jpg");
-		} else if (this.laneType == 2) {
-			this.image= new ImageG("water.jpg");
+		
+		//Set the image:
+		switch(this.laneType) {
+			case 1: this.image = new ImageG("road.jpg"); break;
+			case 2: this.image = new ImageG("water.jpg"); break;
+			default: this.image = new ImageG(""); break;
 		}
 	}
 
@@ -117,7 +118,10 @@ public class Lane {
 	 * densite, si la premiere case de la voie est vide
 	 */
 	private void mayAddCar() {
-		if(((this.laneType == 1) && isSafe(getFirstCase()) && isSafe(getBeforeFirstCase()))||((this.laneType == 2) && !isSafe(getFirstCase()) && !isSafe(getBeforeFirstCase()))) {
+		if(
+			((this.laneType == 1) && isSafe(getFirstCase()) && isSafe(getBeforeFirstCase())) ||
+			((this.laneType == 2) && !isSafe(getFirstCase()) && !isSafe(getBeforeFirstCase()))
+		) {
 			if (game.randomGen.nextDouble() < density) {
 				cars.add(new Car(game, getBeforeFirstCase(), this.leftToRight, this.laneType));
 			}
