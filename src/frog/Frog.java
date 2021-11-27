@@ -1,10 +1,8 @@
 package frog;
 
-//import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import gameCommons.Game;
-import gameCommons.IFrog;
 import util.Direction;
 import util.ImageG;
 import util.Case;
@@ -15,8 +13,6 @@ public class Frog implements IFrog {
 	protected Case caseFrog;
 	protected Direction direction;
 	protected ImageG image ;
-
-
 
 	public Frog(Game game) {
 		this.game = game;

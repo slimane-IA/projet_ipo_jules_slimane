@@ -1,22 +1,18 @@
 package graphicalElements;
 
-//import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import environment.Lane;
-import gameCommons.Game;
-import gameCommons.IFrog;
-import util.Direction;
-import util.ImageG;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-//import java.awt.image.BufferedImage;
-//import java.awt.image.ImageObserver;
-//import java.io.File;
-//import java.io.IOException;
 import java.util.ArrayList;
+
+import environment.Lane;
+import gameCommons.Game;
+import frog.IFrog;
+import util.Direction;
+import util.ImageG;
+
+
 
 public class FroggerGraphic extends JPanel implements KeyListener {
 	private ArrayList<Element> elementsToDisplay;

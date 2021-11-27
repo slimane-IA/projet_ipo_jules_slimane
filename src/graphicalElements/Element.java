@@ -3,9 +3,6 @@ package graphicalElements;
 import java.awt.*;
 import java.util.ArrayList;
 
-//import javax.swing.ImageIcon;
-
-//import environment.Car;
 import util.Case;
 import util.ImageG;
 
