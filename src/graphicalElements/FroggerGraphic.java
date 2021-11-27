@@ -85,21 +85,16 @@ public class FroggerGraphic extends JPanel implements KeyListener {
 			laneTypes.add(l.getLaneType());
 		}
 		
-		//Draw the lanes background
+		//Get the coordinates right
 		int size = laneTypes.size();
 		int linesBelow = this.game.getEnvironment().getLinesBelow();
 		int lowestLine = this.game.getEnvironment().getLowestLine();
-
-		//Get the coordinates right
 		int frogPos = this.game.getFrog().getPosition().ord;
 		int lowLine = Math.min( frogPos-linesBelow, lowestLine );
-
-		System.out.println(frogPos+" "+(frogPos-linesBelow)+" "+lowestLine+" "+lowLine);
-
-		for (int i=linesBelow; i<size; i++) {
-			//int j = size-i-1-linesBelow;
+		
+		//Draw the lanes background
+		for (int i=linesBelow-1; i<size; i++) {
 			int j = height-(i+lowestLine-frogPos+1);
-			//if(i == linesBelow) {System.out.println("- "+(i+lowLine-1));}
 
 			ImageG backImg;
 			switch(laneTypes.get(i)) {
@@ -113,10 +108,8 @@ public class FroggerGraphic extends JPanel implements KeyListener {
 
 		//Draw the cars
 		for (Element e : elementsToDisplay) {
-			//System.out.println(e);
 			if (e.image!=null) {
 				for (int i=0; i<e.image.size();i++) {
-					//if(e.elementType == 0) {System.out.println(e.ord+" "+height+" "+size+" "+linesBelow+" "+lowLine+" "+(e.ord + 1));}
 					g.drawImage(e.image.get(i).image, (pixelByCase * (e.absc+i)), pixelByCase * (height - (e.ord - lowLine + 1 - linesBelow)), pixelByCase, pixelByCase, null );
 				}
 			} else {

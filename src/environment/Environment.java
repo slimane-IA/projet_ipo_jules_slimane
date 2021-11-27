@@ -15,7 +15,7 @@ public class Environment {
 	protected int highestLine = lowestLine; //Highest line handled
 
 	protected int curBlocType = 0; //Specifies the type of the current bloc
-	protected int curBlocRem = 15+linesBelow; //Specifies the amount of lanes remaining to be created for the current bloc
+	protected int curBlocRem = 1+linesBelow; //Specifies the amount of lanes remaining to be created for the current bloc
 	protected boolean curLaneLTR = false; //Specifies whether the current lane is ltr or rtl (reset with each new bloc)
 
     public Environment(Game game) {
