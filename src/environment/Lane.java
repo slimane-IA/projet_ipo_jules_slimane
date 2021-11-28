@@ -59,15 +59,10 @@ public class Lane {
 	}
 
 	public void startMovingAllCars() {
-		for (Car car : this.cars) {
+		for(int i=0; i<this.cars.size(); i++) {
+			Car car = this.cars.get(i);
 			car.move();
-			//move the frog is rondin and car on it
-			if (car.getFrogOnIt() ) {
-				if ( (this.game.getFrog().getPosition().absc-1>=0) && (this.game.getFrog().getPosition().absc+1<this.game.width) )
-					this.game.getFrog().setPosition(car.getLeftPosition());
-			}
 		}
-		// update the table
 		this.cleanCarTable();
 	}
 
@@ -84,7 +79,7 @@ public class Lane {
 			if (this.cars.get(i).getLeftToRight()) {
 				if (this.cars.get(i).getLeftPosition().absc>=this.game.width)
 					this.cars.remove(this.cars.get(i));
-			}else{
+			} else {
 				if (this.cars.get(i).getLeftPosition().absc+this.cars.get(i).getLength()<=0)
 					this.cars.remove(this.cars.get(i));
 			}

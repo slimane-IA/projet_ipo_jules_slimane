@@ -41,7 +41,7 @@ public class Frog implements IFrog {
 		return this.caseFrog;
 	}
 
-	public void setPosition(Case anyCase ){
+	public void setPosition(Case anyCase) {
 		this.caseFrog=anyCase;
 	}
 
@@ -50,7 +50,7 @@ public class Frog implements IFrog {
 	 * Gives the direction of the Frog on its most recent move
 	 * @return Direction
 	 */
-	public Direction getDirection(){
+	public Direction getDirection() {
 		return this.direction;
 	}
 
@@ -65,7 +65,7 @@ public class Frog implements IFrog {
 	 * Moves the Frog in the given direction and checks for game ending
 	 * @param key given direction
 	 */
-	public void move(Direction key){
+	public void move(Direction key) {
 		
 		// 1. move the Frog :
 		switch(key) {

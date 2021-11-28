@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 //import java.awt.image.BufferedImage;
 import util.Case;
+import util.Direction;
 //import util.Direction;
 import util.ImageG;
 import gameCommons.Game;
@@ -38,7 +39,7 @@ public class Car {
 		this.leftToRight = leftToRight;
 		this.carType = carType;
 
-		this.length = (this.carType == 1) ? (this.game.randomGen.nextInt(4)) : (this.game.randomGen.nextInt(4)+3);
+		this.length = (this.carType == 1) ? (this.game.randomGen.nextInt(4)) : (this.game.randomGen.nextInt(4)+6);
 		this.props = new ArrayList<>();
 
 		this.hasBackGround = false;
@@ -99,7 +100,10 @@ public class Car {
 	public void move() {
 
 		//Check if car is on it
-		this.frogOnIt = (this.carType == 1) && this.occupyCase(this.game.getFrogCase());
+		this.frogOnIt = (this.carType == 2) && this.occupyCase(this.game.getFrogCase());
+		if(this.frogOnIt && this.game.getFrogCase().absc > 0 && this.game.getFrogCase().absc < this.game.width) {
+			this.game.getFrog().move( this.leftToRight ? Direction.right : Direction.left );
+		}
 		
 		this.leftPosition = new Case(this.leftPosition.absc + (leftToRight ? 1 : -1), this.leftPosition.ord);
 
