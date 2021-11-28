@@ -19,7 +19,7 @@ public class Main {
 		int height = 20;
 		int tempo = 100;
 		int minSpeedInTimerLoops = 1;
-		double defaultDensity = 0.25;
+		double defaultDensity = 0.2;
 		
 		//Creation of the graphical interface
 		FroggerGraphic graphic = new FroggerGraphic(width, height);

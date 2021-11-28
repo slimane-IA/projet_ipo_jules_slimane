@@ -127,10 +127,7 @@ public class Car {
 	
 	/* Fourni : addToGraphics() permettant d'ajouter un element graphique correspondant a la voiture*/
 	private void addToGraphics() {
-		for (int i = 0; i < length; i++) {
-			game.getGraphic().add(new Element(leftPosition.absc + i, leftPosition.ord, this.props));
-		}
-		//game.getGraphic().add(new Element(leftPosition.absc + length, leftPosition.ord, Color.GRAY));
+		game.getGraphic().add(new Element(leftPosition.absc, leftPosition.ord, this.props));
 	}
 
 }
