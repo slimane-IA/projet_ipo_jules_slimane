@@ -38,7 +38,7 @@ public class Car {
 		this.leftToRight = leftToRight;
 		this.carType = carType;
 
-		this.length = (this.carType == 1) ? (this.game.randomGen.nextInt(1, 4)) : (this.game.randomGen.nextInt(3, 7));
+		this.length = (this.carType == 1) ? (this.game.randomGen.nextInt(4)) : (this.game.randomGen.nextInt(4)+3);
 		this.props = new ArrayList<>();
 
 		this.hasBackGround = false;
