@@ -13,3 +13,7 @@ Les développements suivants se sont concentrés sur les ajouts des parties 3 et
 La mise en place du timer et des rivières/rondins a suivi, avec des légères difficultés par rapport à la relation entre voitures et rondins (codées avec la même classe) ; par exemple le fait que la Frog ne doit mourir que si l'objet est une voiture (pas un rondin, résolu en rajoutant une condition sur la méthode isSafe()). Le fait que la Frog doive bouger avec le rondin sur lequel elle est a aussi brièvement posé problème mais fut résolu en appellant la fonction move() de la frog.
 
 L'affichage graphique amélioré a été un problème de taille. D'abord avec une tentative d'implémentation manuelle (en dessinant des groupes de pixels), le choix fut fait d'afficher des images ; ce qui a soulevé des problèmes supplémentaires par rapport à la manière dont les images sont faites, leur transparence, et leur position (alignement par rapport aux objets). En général, la relation entre la classe de graphiques et le reste des classes du projet a été un point difficile pendant tout le projet.
+
+L'une des dernières étapes a été d'optimiser certaines parties du codes. Le chargement des images a été simplifié (en chargeant les images à chaque frame au lieu de chaque élément) et la taille des images réduite. Les interfaces d'environnement et de graphismes ont été supprimées car ne manipulant qu'une unique instance d'une seule classe chacune ; le mode de génération de la carte a aussi été modifié pour être plus régulier et plus modulable.
+
+[Seconde partie du rapport en pdf](rapport_p2.pdf)
