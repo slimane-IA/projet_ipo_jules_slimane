@@ -17,7 +17,7 @@ public class Main {
 		//Game settings
 		int width = 26;
 		int height = 20;
-		int tempo = 100;
+		int tempo = 200;
 		int minSpeedInTimerLoops = 1;
 		double defaultDensity = 0.1;
 		
