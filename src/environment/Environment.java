@@ -77,7 +77,8 @@ public class Environment {
 
 				if(this.curBlocType == 0) { //If currently on a 0 bloc, create a new lane or road bloc
 					this.curBlocType = this.game.randomGen.nextInt(2)+1;
-					this.curBlocRem = this.game.randomGen.nextInt(6)+1;
+					//this.curBlocRem = this.game.randomGen.nextInt(6)+1;
+					this.curBlocRem = (this.curBlocType == 1) ? this.game.randomGen.nextInt(6)+1 : 1; //One lane if river, between 1 and 6 if road
 
 				} else { //Else (currently on a non-0 bloc), create a new empty or different bloc
 
@@ -86,7 +87,9 @@ public class Environment {
 					this.curBlocType = (this.game.randomGen.nextBoolean()) ? 0 : nextType;
 					
 					//Bloc length 1 if empty lane, else between 1 and 6
-					this.curBlocRem = (this.curBlocType == 0) ? 1 : this.game.randomGen.nextInt(4)+3;
+					//this.curBlocRem = (this.curBlocType == 0) ? 1 : this.game.randomGen.nextInt(4)+3;
+					this.curBlocRem = (this.curBlocType == 1) ? this.game.randomGen.nextInt(4)+3 : 1; //One lane if river or empty
+					
 					
 					//Init the new ltr
 					this.curLaneLTR = this.game.randomGen.nextBoolean();
